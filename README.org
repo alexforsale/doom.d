@@ -11,13 +11,9 @@ Sejarah singkat /emacs/ mungkin lebih meyakinkan jika dijelaskan oleh [[https://
 Ini sangat berkaitan dengan awal perkenalan saya dengan /linux/, ketika itu masih menggunakan [[https://blankonlinux.or.id/index.html][/blankon/]] yang sudah pindah ke /debian/ sebagai basis. Ketika itu saya masih dalam pencarian atau seleksi /program/ untuk mengganti semua /program/ yang tersedia di /OS/ primitif sebelumnya. Kebanyakan yang saya butuhkan hanyalah teks /editor/, /music player/ dan /video player/ pada umumnya untuk penyegaran. Motivasi saya untuk migrasi ke /linux/ pun dikarenakan "lingkungan" /linux/ kelihatannya lebih "nyaman" untuk /oprek - oprek/ /android/ (kala itu baru transisi dari /gingerbread/ ke /ice cream sandwich/).
 Di /OS/ primitif, untuk teks /editor/ saya cuma punya satu pilihan: /notepad++/, jadi sangat mengejutkan kala itu ketika migrasi ke /linux/ ternyata ada [[https://en.wikipedia.org/wiki/Editor_war][perang berkepanjangan]] menyangkut /text editor/.
 Sebagai penghuni baru di negeri /linux/, tentunya saya perlu mengetahui lebih lanjut mengenai kedua belah pihak yang berperang, jadi saya coba satu persatu:
-+ [[https://en.wikipedia.org/wiki/Vi][vi]]/[[https://en.wikipedia.org/wiki/Vim_(text_editor)][vim]]
-
-    Entah kala itu di /blankon/ versi mana yang terpasang secara /default/, bisa jadi saya install /vim/ secara manual, yang saya ingat setelah instalasi, coba jalankan di /terminal emulator/, dan /bengong/ melihat konsep /modal editor/. Singkat kata saya menyelesaikan (mungkin) 1/4 dari /vimtutor/ dan menyerah.
++ [[https://en.wikipedia.org/wiki/Vi][vi]]/[[https://en.wikipedia.org/wiki/Vim_(text_editor)][vim]] ::Entah kala itu di /blankon/ versi mana yang terpasang secara /default/, bisa jadi saya install /vim/ secara manual, yang saya ingat setelah instalasi, coba jalankan di /terminal emulator/, dan /bengong/ melihat konsep /modal editor/. Singkat kata saya menyelesaikan (mungkin) 1/4 dari /vimtutor/ dan menyerah.
   Tapi saya masih tertarik mengingat mayoritas dari /distro linux/ menyediakan /vi/ atau variannya secara /default/.
-+ /emacs/
-
-    Cukup lama juga saya mempelajari /emacs/, lebih menarik dari /vim/ karena versi /GUI/ nya lebih "masuk akal" ke otak saya yang kala itu masih berorientasi ke "/visual interface/" yang masih "klik sana - sini", setelah sekian lama berada didalam /OS/ primitif. Tapi tetap tidak bertahan lama begitu mengetahui kombinasi /keyboard/ nya yang sangat rumit dan susah diingat. Ditambah pula, /emacs vanilla/ (tanpa konfigurasi sama sekali), benar - benar membingungkan, dan untuk melakukan konfigurasi pun masih ada satu hambatan lagi: [[https://en.wikipedia.org/wiki/Emacs_Lisp][/emacs-lisp/]].
++ /emacs/ :: Cukup lama juga saya mempelajari /emacs/, lebih menarik dari /vim/ karena versi /GUI/ nya lebih "masuk akal" ke otak saya yang kala itu masih berorientasi ke "/visual interface/" yang masih "klik sana - sini", setelah sekian lama berada didalam /OS/ primitif. Tapi tetap tidak bertahan lama begitu mengetahui kombinasi /keyboard/ nya yang sangat rumit dan susah diingat. Ditambah pula, /emacs vanilla/ (tanpa konfigurasi sama sekali), benar - benar membingungkan, dan untuk melakukan konfigurasi pun masih ada satu hambatan lagi: [[https://en.wikipedia.org/wiki/Emacs_Lisp][/emacs-lisp/]].
 Jadi saya bertualang entah berapa lama mencoba - coba banyak /editor/ lain (dan juga /distro/ lainnya, bahkan /OS/ lain). Tapi tetap sedikit demi sedikit saya mempelajari /vi/, /vim/ dan /emacs/, karena memang diperlukan:
 + Secara /default/, /key/ navigasi /emacs/ digunakan oleh /bash/ (dan banyak /shell/ lainnya), seperti =C-f=, =C-b= untuk maju dan mundur satu karakter (=C= disini berarti tombol =Control=), =C-a= dan =C-e= untuk ke awal/akhir baris, dan lainnya.
 + Juga secara /default/ (jika tidak dirubah oleh /distro/), perintah ~visudo~ untuk merubah /file/ konfigurasi ~sudo~ menggunakan /vi/.
@@ -26,6 +22,16 @@ Tapi tetap saya lebih condong ke /emacs/, karena satu hal: =org-mode=, simpelnya
 
 ** Doom Emacs
 [[https://github.com/hlissner/doom-emacs][/Doom Emacs/]], menurut saya, adalah jawaban untuk perang editor yang berkepanjangan diatas. Kompilasi dari banyak /module emacs/ yang sering digunakan, siap pakai tanpa perlu melakukan konfigurasi yang memakan waktu 2 bulan.
+
+*** Konfigurasi doom emacs
+Begit selesai melakukan instalasi /doom/, secara otomatis akan dibuat satu /directory/ untuk konfigurasi yang berada di salah satu dari:
+- =~/.config/doom=, atau
+- =~/.doom.d=
+Hanya satu dari kedua /directory/ tersebut yang diambil oleh /doom/, bisa disesuaikan dengan merubah /environment variable/ =DOOMDIR=. /Directory/ tersebut akan berisi:
+- init.el :: /file/ ini yang paling awal dievaluasi oleh /emacs/ ketika sesi /emacs/ dimulai; sebelum /file - file/ lainnya di /load/, umumnya selain blok kode ~doom!~, tidak diperlukan penambahan kode lainnya di /file/ ini.
+- config.el :: disini semua konfigurasi /doom/ dilakukan, karena saya [[file:init.el::literate][menggunakan fitur /literate/]] di /file/ =init.el=, /doom/ akan mengambil /file/ =config.org= untuk dijadikan sebagai /file/ konfigurasi, melakukan /parsing/ setiap blok kode /emacs-lisp/ yang ada di /file/ ini.
+- packages.el :: semua konfigurasi menyangkut manajemen /package/ dilakukan disini, juga dengan fitur /literate/, diatur didalam /file/ ini.
+ 
 * Konfigurasi Dasar
 Konfigurasi yang di-/set/ di =~/.doom.d/config.el=, ketika kita melakukan /fresh install/ /doom/.
 
