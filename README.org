@@ -63,23 +63,52 @@ See `org-capture-templates' for more information."
                    ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
                    ":END:"
                    "%?\n")                ;Place the cursor here finally
-                 "\n")))
-  (setq org-capture-templates
-        (append '(("h" "Hugo")
-                  ("hb" "Hugo new post" entry (file+olp "~/Projects/personal/blog/index.org" "Post")
-                   (function org-hugo-new-subtree-post-capture-template))))))
-                 #+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'org-capture
-  (add-to-list 'org-capture-templates
-               '("hp" "Hugo new project" entry
-                 (file+olp "~/Projects/personal/blog/index.org" "Projects")
-                 (function org-hugo-new-subtree-post-capture-template))))
+                 "\n"))))
 #+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (setq org-log-done "time"
       org-log-done-with-time 't)
+#+END_SRC
+** org-mode
+/Default/ nya =diary-file= berada didalam /directory/ =~/.emacs.d=.
+#+BEGIN_SRC emacs-lisp
+(after! org
+(setq diary-file "~/Documents/org/diary.org"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(after! org-capture
+(setq org-capture-templates
+ '(("t" "Personal todo" entry
+  (file+headline +org-capture-todo-file "Inbox")
+  "* [ ] %?\n%i\n%a" :prepend t)
+ ("n" "Personal notes" entry
+  (file+headline +org-capture-notes-file "Inbox")
+  "* %u %?\n%i\n%a" :prepend t)
+ ("j" "Journal" entry
+  (file+olp+datetree +org-capture-journal-file)
+  "* %U %?\n%i\n%a" :prepend t)
+ ("p" "Templates for projects")
+ ("pt" "Project-local todo" entry
+  (file+headline +org-capture-project-todo-file "Inbox")
+  "* TODO %?\n%i\n%a" :prepend t)
+ ("pn" "Project-local notes" entry
+  (file+headline +org-capture-project-notes-file "Inbox")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("pc" "Project-local changelog" entry
+  (file+headline +org-capture-project-changelog-file "Unreleased")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("o" "Centralized templates for projects")
+ ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+ ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+ ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)
+("h" "Hugo")
+("hp" "New Project" entry (file+olp "~/Projects/personal/blog/index.org" "Projects")
+(function org-hugo-new-subtree-post-capture-template))
+("hb" "New Project" entry (file+olp "~/Projects/personal/blog/index.org" "Post")
+(function org-hugo-new-subtree-post-capture-template))
+)))
 #+END_SRC
 * Packages
 :PROPERTIES:
