@@ -3,6 +3,27 @@
 #+email: alexforsale@yahoo.com
 #+options: :toc nil
 
+* Intro
+Bukan untuk dijadikan acuan atau basis /tutorial/, hanya mengupas sedikit dari:
+
+** Emacs
+Sejarah singkat /emacs/ mungkin lebih meyakinkan jika dijelaskan oleh [[https://en.wikipedia.org/wiki/Emacs][/wikipedia/]], saya disini hanya bisa menjelaskan mengapa saya lebih memilih /emacs/ dibandingkan /vim/.
+Ini sangat berkaitan dengan awal perkenalan saya dengan /linux/, ketika itu masih menggunakan [[https://blankonlinux.or.id/index.html][/blankon/]] yang sudah pindah ke /debian/ sebagai basis. Ketika itu saya masih dalam pencarian atau seleksi /program/ untuk mengganti semua /program/ yang tersedia di /OS/ primitif sebelumnya. Kebanyakan yang saya butuhkan hanyalah teks /editor/, /music player/ dan /video player/ pada umumnya untuk penyegaran. Motivasi saya untuk migrasi ke /linux/ pun dikarenakan "lingkungan" /linux/ kelihatannya lebih "nyaman" untuk /oprek - oprek/ /android/ (kala itu baru transisi dari /gingerbread/ ke /ice cream sandwich/).
+Di /OS/ primitif, untuk teks /editor/ saya cuma punya satu pilihan: /notepad++/, jadi sangat mengejutkan kala itu ketika migrasi ke /linux/ ternyata ada [[https://en.wikipedia.org/wiki/Editor_war][perang berkepanjangan]] menyangkut /text editor/.
+Sebagai penghuni baru di negeri /linux/, tentunya saya perlu mengetahui lebih lanjut mengenai kedua belah pihak yang berperang, jadi saya coba satu persatu:
++ [[https://en.wikipedia.org/wiki/Vi][vi]]/[[https://en.wikipedia.org/wiki/Vim_(text_editor)][vim]]
+  Entah kala itu di /blankon/ versi mana yang terpasang secara /default/, bisa jadi saya install /vim/ secara manual, yang saya ingat setelah instalasi, coba jalankan di /terminal emulator/, dan /bengong/ melihat konsep /modal editor/. Singkat kata saya menyelesaikan (mungkin) 1/4 dari /vimtutor/ dan menyerah.
+  Tapi saya masih tertarik mengingat mayoritas dari /distro linux/ menyediakan /vi/ atau variannya secara /default/.
++ emacs
+  Cukup lama juga saya mempelajari /emacs/, lebih menarik dari /vim/ karena versi /GUI/ nya lebih "masuk akal" ke otak saya yang kala itu masih berorientasi ke "/visual interface/" yang masih "klik sana - sini", setelah sekian lama berada didalam /OS/ primitif. Tapi tetap tidak bertahan lama begitu mengetahui kombinasi /keyboard/ nya yang sangat rumit dan susah diingat. Ditambah pula, /emacs vanilla/ (tanpa konfigurasi sama sekali), benar - benar membingungkan, dan untuk melakukan konfigurasi pun masih ada satu hambatan lagi: [[https://en.wikipedia.org/wiki/Emacs_Lisp][/emacs-lisp/]].
+Jadi saya bertualang entah berapa lama mencoba - coba banyak /editor/ lain (dan juga /distro/ lainnya, bahkan /OS/ lain). Tapi tetap sedikit demi sedikit saya mempelajari /vi/, /vim/ dan /emacs/, karena memang diperlukan:
++ Secara /default/, /key/ navigasi /emacs/ digunakan oleh /bash/ (dan banyak /shell/ lainnya), seperti =C-f=, =C-b= untuk maju dan mundur satu karakter (=C= disini berarti tombol =Control=), =C-a= dan =C-e= untuk ke awal/akhir baris, dan lainnya.
++ Juga secara /default/ (jika tidak dirubah oleh /distro/), perintah ~visudo~ untuk merubah /file/ konfigurasi ~sudo~ menggunakan /vi/.
+Seiring dengan berjalannya waktu, bertambah juga pengetahuan saya tentang /vim/ dan /emacs/, tidak banyak, tapi cukup untuk mencoba menggunakan keduanya secara bersamaan. Dan mungkin sekitar 2012 atau 2013 saya baru bisa menyelesaikan kedua /tutorial/ yang disediakan oleh kedua /program/ tersebut.
+Tapi tetap saya lebih condong ke /emacs/, karena satu hal: =org-mode=, simpelnya merupakan salah satu dari sekian banyak /plugin/ untuk /emacs/, [[https://en.wikipedia.org/wiki/Org-mode][/org-mode/]] awalnya dibuat sebagai /organizer/, /notes/ dan juga untuk /formatting/ berbagai /markup language/. File /readme/ ini, dibuat dengan /org-mode/, dan juga berfungsi sebagai /file/ konfigurasi untuk /doom emacs/!
+
+** Doom Emacs
+[[https://github.com/hlissner/doom-emacs][/Doom Emacs/]], menurut saya, adalah jawaban untuk perang editor yang berkepanjangan diatas. Kompilasi dari banyak /module emacs/ yang sering digunakan, siap pakai tanpa perlu melakukan konfigurasi yang memakan waktu 2 bulan.
 * Konfigurasi Dasar
 Konfigurasi yang di-/set/ di =~/.doom.d/config.el=, ketika kita melakukan /fresh install/ /doom/.
 
@@ -70,6 +91,8 @@ See `org-capture-templates' for more information."
 (setq org-log-done "time"
       org-log-done-with-time 't)
 #+END_SRC
+*** Alur Workflow dari ox-hugo
+
 ** org-mode
 /Default/ nya =diary-file= berada didalam /directory/ =~/.emacs.d=.
 #+BEGIN_SRC emacs-lisp
@@ -77,6 +100,7 @@ See `org-capture-templates' for more information."
 (setq diary-file "~/Documents/org/diary.org"))
 #+END_SRC
 
+/List/ /templates/ dibawah ini sebagian besar merupakan bawaan dari /doom/,hanya diberi tambahan 2 /items/, =hb= untuk membuat /post/ baru di /blog/, dan =hp= untuk membuat /page project/ baru. Untuk =org-capture-todo-file= /default/ nya adalah /todo.org/, =org-capture-notes-file= adalah /notes.org/, dan =org-capture-journal-file= adalah /journal.org/, semua berada didalam /directory/ yang diset didalam /variable/ =org-directory=.
 #+BEGIN_SRC emacs-lisp
 (after! org-capture
 (setq org-capture-templates
@@ -106,7 +130,7 @@ See `org-capture-templates' for more information."
 ("h" "Hugo")
 ("hp" "New Project" entry (file+olp "~/Projects/personal/blog/index.org" "Projects")
 (function org-hugo-new-subtree-post-capture-template))
-("hb" "New Project" entry (file+olp "~/Projects/personal/blog/index.org" "Post")
+("hb" "New blogpost" entry (file+olp "~/Projects/personal/blog/index.org" "Post")
 (function org-hugo-new-subtree-post-capture-template))
 )))
 #+END_SRC
