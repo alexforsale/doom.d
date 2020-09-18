@@ -1,6 +1,7 @@
 #+title: Konfigurasi Doom emacs
 #+author: Kristian Alexander P
 #+email: alexforsale@yahoo.com
+#+options: :toc nil
 
 * Konfigurasi Dasar
 Konfigurasi yang di-/set/ di =~/.doom.d/config.el=, ketika kita melakukan /fresh install/ /doom/.
