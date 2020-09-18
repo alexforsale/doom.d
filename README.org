@@ -77,6 +77,10 @@ See `org-capture-templates' for more information."
                  (file+olp "~/Projects/personal/blog/index.org" "Projects")
                  (function org-hugo-new-subtree-post-capture-template))))
 #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(setq org-log-done "time"
+      org-log-done-with-time 't)
+#+END_SRC
 * Packages
 :PROPERTIES:
 :header-args: emacs-lisp :tangle "packages.el" :comment link
