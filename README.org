@@ -72,10 +72,8 @@ Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja dit
 (selectric-mode)
 #+END_SRC
 ** ox-hugo
-/Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog.
-
+/Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog. /Codeblock/ dibawah ini saja sebenarnya hanyalah penambahan /function/ yang nantinya dipanggil didalam =org-capture-templates=.
 #+BEGIN_SRC emacs-lisp
-;; Populates only the EXPORT_FILE_NAME property in the inserted headline.
 (with-eval-after-load 'org-capture
   (defun org-hugo-new-subtree-post-capture-template ()
     "Returns `org-capture' template string for new Hugo post.
@@ -95,19 +93,21 @@ See `org-capture-templates' for more information."
                  "\n"))))
 #+END_SRC
 
+*** Alur Workflow dari ox-hugo
+Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=, akan ada satu pilihan /template/ =[h]= untuk /Hugo/ (yang konfigurasinya dibuat [[*org-capture-templates][disini]]). Didalammnya ada tambahan pilihan untuk entri /New Project/ atau /New blogpost/, jika dipilih, keduanya akan melakukan penambahan /heading/ di file =~/Projects/personal/blog/index.org=, disini lokasi dari /blog/ saya. Bedanya pilihan /New Project/ akan membuat /heading/ baru dibawah /heading/ =Projects= yang sudah ada didalam file =index.org=, sebaliknya juga, pilihan /New blogpost/ akan membuat heading baru dibawah /heading/ =Post=.
+** org-mode
+Beberapa konfigurasi umum:
 #+BEGIN_SRC emacs-lisp
 (setq org-log-done "time"
       org-log-done-with-time 't)
 #+END_SRC
-*** Alur Workflow dari ox-hugo
 
-** org-mode
 /Default/ nya =diary-file= berada didalam /directory/ =~/.emacs.d=.
 #+BEGIN_SRC emacs-lisp
 (after! org
 (setq diary-file "~/Documents/org/diary.org"))
 #+END_SRC
-
+*** org-capture-templates
 /List/ /templates/ dibawah ini sebagian besar merupakan bawaan dari /doom/,hanya diberi tambahan 2 /items/, =hb= untuk membuat /post/ baru di /blog/, dan =hp= untuk membuat /page project/ baru. Untuk =org-capture-todo-file= /default/ nya adalah /todo.org/, =org-capture-notes-file= adalah /notes.org/, dan =org-capture-journal-file= adalah /journal.org/, semua berada didalam /directory/ yang diset didalam /variable/ =org-directory=.
 #+BEGIN_SRC emacs-lisp
 (after! org-capture
