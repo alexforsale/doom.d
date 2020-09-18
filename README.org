@@ -63,13 +63,13 @@ Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
       display-line-numbers 'relative)
 #+END_SRC
 *** vterm
-Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=.
+Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=. Karena /package/ ini bawaan dari /doom/, tidak perlu dilakukan penambahan di =package.el=.
 * Kustomisasi Lanjutan
 Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja ditaruh disini agar lebih mudah melakukan /trace/ jika ada yang salah. Karena /doom/ sendiri sebenarnya adalah konfigurasi untuk /emacs/, cukup rumit untuk melihat apa yang salah jika ada miskonfigurasi. Jadi sebaiknya lakukan perubahan satu persatu, gunakan /version control/ untuk mempermudah, seperti /git/. =doom sync= setiap perubahan, /restart emacs/ dan jika tidak ada yang salah, /commit/ perubahan tersebut.
 ** selectric mode
 #+BEGIN_SRC emacs-lisp
 (require 'selectric-mode)
-(setq selectric-mode t)
+(selectric-mode)
 #+END_SRC
 ** ox-hugo
 /Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog.
