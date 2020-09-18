@@ -42,7 +42,40 @@ Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja dit
 (require 'selectric-mode)
 (setq selectric-mode t)
 #+END_SRC
+** ox-hugo
+/Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog.
 
+#+BEGIN_SRC emacs-lisp
+;; Populates only the EXPORT_FILE_NAME property in the inserted headline.
+(with-eval-after-load 'org-capture
+  (defun org-hugo-new-subtree-post-capture-template ()
+    "Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information."
+    (let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+           (date (format-time-string (org-time-stamp-format :long :inactive) (org-current-time)))
+           (title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+           (fname (org-hugo-slug title)))
+      (mapconcat #'identity
+                 `(
+                   ,(concat "* TODO " title)
+                   ":PROPERTIES:"
+                   ,(concat ":EXPORT_FILE_NAME: " fname)
+                   ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
+                   ":END:"
+                   "%?\n")                ;Place the cursor here finally
+                 "\n")))
+  (setq org-capture-templates
+        (append '(("h" "Hugo")
+                  ("hb" "Hugo new post" entry (file+olp "~/Projects/personal/blog/index.org" "Post")
+                   (function org-hugo-new-subtree-post-capture-template))))))
+                 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-capture-templates
+             '("hp" "Hugo new project" entry
+               (file+olp "~/Projects/personal/blog/index.org" "Projects")
+               (function org-hugo-new-subtree-post-capture-template)))
+#+END_SRC
 * Packages
 :PROPERTIES:
 :header-args: emacs-lisp :tangle "packages.el" :comment link
