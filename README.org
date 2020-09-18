@@ -1,0 +1,108 @@
+#+title: Konfigurasi Doom emacs
+#+author: Kristian Alexander P
+#+email: alexforsale@yahoo.com
+#+options: :tangle "config.el"
+
+* Konfigurasi Dasar
+Konfigurasi yang di-/set/ di =~/.doom.d/config.el=, ketika kita melakukan /fresh install/ /doom/.
+
+Menggunakan /lexical binding/ agar /file/ ini berjalan lebih cepat (lengkapnya lihat di post blog [[https://nullprogram.com/blog/2016/12/22/][ini]]).
+#+BEGIN_SRC emacs-lisp :comments no
+;;; config.el -*- lexical-binding: t; -*-
+#+END_SRC
+** Informasi Personal
+Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
+#+BEGIN_SRC emacs-lisp
+(setq user-full-name "Kristian Alexander"
+      user-mail-address "alexforsale@yahoo.com")
+#+END_SRC
+** Font
+#+BEGIN_SRC emacs-lisp
+(ignore-errors
+  (setq doom-font (font-spec :family "Source Code Pro" :size 9)
+        doom-big-font (font-spec :family "Source Code Pro" :size 14)
+        doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 8)
+        doom-serif-font (font-spec :family "Source Serif Pro" :weight 'light)))
+#+END_SRC
+** Theme
+#+BEGIN_SRC emacs-lisp
+(setq doom-theme 'doom-vibrant)
+#+END_SRC
+** Others
+#+BEGIN_SRC emacs-lisp
+(setq org-directory "~/Documents/org"
+      display-line-numbers 'relative)
+#+END_SRC
+*** vterm
+Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=.
+* Kustomisasi Lanjutan
+Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja ditaruh disini agar lebih mudah melakukan /trace/ jika ada yang salah. Karena /doom/ sendiri sebenarnya adalah konfigurasi untuk /emacs/, cukup rumit untuk melihat apa yang salah jika ada miskonfigurasi. Jadi sebaiknya lakukan perubahan satu persatu, gunakan /version control/ untuk mempermudah, seperti /git/. =doom sync= setiap perubahan, /restart emacs/ dan jika tidak ada yang salah, /commit/ perubahan tersebut.
+** selectric mode
+#+BEGIN_SRC emacs-lisp
+(require 'selectric-mode)
+(setq selectric-mode t)
+#+END_SRC
+
+* Packages
+:PROPERTIES:
+:header-args: emacs-lisp :tangle "packages.el" :comment link
+:END:
+Semua /code blocks/ yang berada dibawah /header ini akan masuk kedalam /file/ =packages.el=, yang /default/-nya hanya berisi komentar saja.
+Instalasi /package/ di /doom/ dimulai dengan memasukkan nama /file/ nya kedalam file =packages.el= dan setelahnya melakukan perintah =doom sync= di /command line/, dan /restart/ sesi /emacs/.
+Instalai /package/ dari /repo/ /MELPA/, /ELPA/, atau /emacsmirror/:
+#+BEGIN_EXAMPLE
+(package! namapackage)
+#+END_EXAMPLE
+Instalasi /package/ langsung dari /repo remote/ /git/, kita perlu mencantumkan =:recipe=. Dokumentasi lengkapnya di [https://github.com/raxod502/straight.el#the-recipe-format]:
+#+BEGIN_EXAMPLE
+(package! namapackage
+  :recipe (:host github :repo "username/repo"))
+#+END_EXAMPLE
+Untuk menonaktifkan /package/ bawaan dari /doom/, bisa dengan tambahan /property/ =:disable=:
+#+BEGIN_EXAMPLE
+(package! namapackagebuiltin :disable t)
+#+END_EXAMPLE
+Kita bisa /override/ /package/ bawaan dari /doom/ tanpa harus menyantumkan semua /property/ untuk =:recipe=. Semua /property/ lainnya akan dibawa dari /doom/ atau MELPA/ELPA/Emacsmirror:
+#+BEGIN_EXAMPLE
+(package! namapackagebuiltin :recipe (:nonrecursive t))
+(package! namapackagebuiltin2 :recipe (:repo "namafork/package"))
+#+END_EXAMPLE
+Gunakan =:branch= untuk instalasi /package/ dari /branch/ tertentu atau /tag/ tertentu. Ini diperlukan untuk /package/ yang /branch default/ nya bukan =master=.
+#+BEGIN_EXAMPLE
+(package! namapackagebuiltin :recipe (:branch "develop"))
+#+END_EXAMPLE
+Gunakan =:pin= untuk menentukan /commit/ tertentu.
+#+BEGIN_EXAMPLE
+(package! namapackagebuiltin :pin "1a2b3c4d5e")
+#+END_EXAMPLE
+Dan gunakan =unpin= untuk melepaskan =:pin=
+#+BEGIN_EXAMPLE
+(unpin! namapackage)
+(unpin! namapackage namapackage2)
+#+END_EXAMPLE
+
+** Fun
+*** selectric-mode
+/Sound effect/ mesin ketik.
+#+BEGIN_SRC emacs-lisp
+(package! selectric-mode)
+#+END_SRC
+*** theme-magic
+/Package/ ini berfungsi untuk mengaplikasikan /theme/ /emacs/ ke seluruh /OS/ (saat ini baru untuk /linux/ dan /mac/).
+/Dependency/:
+- /package/ /python/ =pywal=.
+  Dan /pywal/ juga memiliki /dependencies/:
+  - /linux/, /bsd/ atau /mac/ /OS.
+  - /python/ (tentunya).
+  - /imagemagick/.
+  - /pidof/
+  - aplikasi /wallpaper/, (bisa bawaan dari /desktop environment/ seperti /mate/, /gnome/, /xfce/, dll atau universal seperti /feh/ atau /nitrogen/).
+#+BEGIN_SRC emacs-lisp
+(package! theme-magic)
+#+END_SRC
+**** Set Wallpaper
+Agar /setup/ ini bisa berjalan otomatis, untuk penggunaan pertama kali kita perlu merubah /wallpaper/ secara manual menggunakan perintah =wal -i /path/ke/gambar.png= sebelum dapat melakukan /exporting theme/ dari /emacs/. Dan setelahnya /wallpaper/ tersebut akan tersimpan didalam /cache/ /pywal/, perubahan theme bisa dilakukan dengan perintah =M-x theme-magic-from-emacs=.
+**** Restoring Theme
+/Pywal/ hanya berlaku untuk sesi yang berjalan saat itu saja. Jika ingin /themes/ bertahan setiap /reboot/, jalankan perintah =wal -R= di /shell/. Proses ini dapat di otomatisasi dengan menggunakan /script/ atau /startup config/ dari /shell/ yang bersangkutan, atau melalui /file/ =~/.xprofile=.
+Dan jika menggunakan /setup/ seperti [[*theme-magic][ini]], perubahan /theme/ didalam /emacs/ akan otomatis merubah semua tampilan di /os/.
+Cek dokumentasi lengkap di [[https://github.com/dylanaraps/pywal][repo]] untuk detail mengenai kustomisasi ke berbagai aplikasi, /window-manager/, dan lainnya.
