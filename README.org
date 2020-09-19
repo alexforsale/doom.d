@@ -1,7 +1,6 @@
 #+title: Konfigurasi Doom emacs
 #+author: Kristian Alexander P
 #+email: alexforsale@yahoo.com
-#+options: :toc nil
 
 * Intro
 Bukan untuk dijadikan acuan atau basis /tutorial/, hanya mengupas sedikit dari:
@@ -70,6 +69,10 @@ Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja dit
 #+BEGIN_SRC emacs-lisp
 (require 'selectric-mode)
 (selectric-mode)
+#+END_SRC
+** pywal
+#+BEGIN_SRC emacs-lisp
+(add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
 #+END_SRC
 ** ox-hugo
 /Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog. /Codeblock/ dibawah ini saja sebenarnya hanyalah penambahan /function/ yang nantinya dipanggil didalam =org-capture-templates=.
