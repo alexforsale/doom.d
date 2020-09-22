@@ -161,6 +161,11 @@ Beberapa konfigurasi umum:
    mu4e-drafts-folder "/Drafts"
    mu4e-trash-folder  "/Trash"))
 #+END_SRC
+** rgb
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'rainbow-mode-hook
+  (hl-line-mode (if rainbow-mode -1 +1)))
+#+END_SRC
 * Packages
 :PROPERTIES:
 :header-args: emacs-lisp :tangle "packages.el" :comment link
