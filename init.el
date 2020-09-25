@@ -106,7 +106,7 @@
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
-       ;;tty               ; improve the terminal Emacs experience
+       tty               ; improve the terminal Emacs experience
 
        :lang
        ;;agda              ; types of types of types of types...
@@ -147,6 +147,7 @@
        ;;ocaml             ; an objective camel
        (org               ; organize your plain life in plain text
         +hugo
+        +journal
         )
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more

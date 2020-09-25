@@ -146,6 +146,7 @@ Beberapa konfigurasi umum:
 )))
 #+END_SRC
 ** Email
+Konfigurasi untuk /mu4e/ berkaitan dengan konfigurasi di =~/.mbsyncrc=.
  #+BEGIN_SRC emacs-lisp
 (after! mu4e
   (setq
@@ -154,12 +155,94 @@ Beberapa konfigurasi umum:
    message-sendmail-f-is-evil t
    message-sendmail-extra-arguments '("--read-envelope-from")
    message-send-mail-function 'message-send-mail-with-sendmail
-   mu4e-maildir "~/.mail/gmail"
-   mu4e-get-mail-command  "mbsync -a"
-   mu4e-refile-folder "/Archives"
-   mu4e-sent-folder   "/Sent"
-   mu4e-drafts-folder "/Drafts"
-   mu4e-trash-folder  "/Trash"))
+   mu4e-maildir "~/.mail"
+   mu4e-attachment-dir "~/Downloads"
+   mu4e-get-mail-command  "mbsync -a"))
+#+END_SRC
+
+Kustomisasi /context/:
+#+BEGIN_SRC emacs-lisp
+(after! mu4e
+  (setq mu4e-compose-context-policy 'always-ask)
+  (setq mu4e-contexts
+        (list
+         (make-mu4e-context
+          :name "gmail" ; akun gmail
+          :enter-func (lambda () (mu4e-message "entering gmail context"))
+          :leave-func (lambda () (mu4e-message "leaving gmail context"))
+          :match-func (lambda (msg)
+                         (when msg
+                           (mu4e-message-contact-field-matches
+                            msg '(:from :to :bcc :cc) "alexarians@gmail.com")))
+          :vars '((user-mail-address . "alexarians@gmail.com")
+                  (user-full-name . "Kristian Alexander P")
+                  (mu4e-sent-folder . "/gmail/sent")
+                  (mu4e-drafts-folder . "/gmail/draft")
+                  (mu4e-trash-folder. "/gmail/trash")
+                  (mu4e-maildir-shortcuts . ( ("/gmail/inbox" . ?i)
+                                              ("/gmail/sent" . ?s)
+                                              ("/gmail/trash" . ?t)
+                                              ("/gmail/archive" . ?a)
+                                              ("/gmail/draft" . ?d)
+                                              ))))
+         (make-mu4e-context
+          :name "yahoo" ; akun yahoo
+          :enter-func (lambda () (mu4e-message "entering yahoo context"))
+          :leave-func (lambda () (mu4e-message "leaving yahoo context"))
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches
+                           msg '(:from :to :bcc :cc) "alexforsale@yahoo.com")))
+          :vars '((user-mail-address . "alexforsale@yahoo.com")
+                  (user-full-name . "Kristian Alexander P")
+                  (mu4e-sent-folder . "/yahoo/sent")
+                  (mu4e-drafts-folder . "/yahoo/draft")
+                  (mu4e-trash-folder . "/yahoo/trash")
+                  (mu4e-maildir-shortcuts . ( ("/yahoo/inbox" . ?i)
+                                              ("/yahoo/sent" . ?s)
+                                              ("/yahoo/trash" . ?t)
+                                              ("/yahoo/archive" . ?a)
+                                              ("/yahoo/draft" . ?d)
+                                              ))))
+         (make-mu4e-context
+          :name "Ymail" ; akun ymail
+          :enter-func (lambda () (mu4e-message "entering ymail context"))
+          :leave-func (lambda () (mu4e-message "leaving ymail context"))
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches
+                           msg '(:from :to :bcc :cc) "christian.alexander@ymail.com")))
+          :vars '((user-mail-address . "christian.alexander@ymail.com")
+                  (user-full-name . "Kristian Alexander P")
+                  (mu4e-sent-folder . "/ymail/sent")
+                  (mu4e-drafts-folder . "/ymail/draft")
+                  (mu4e-trash-folder . "/ymail/trash")
+                  (mu4e-maildir-shortcuts . ( ("/ymail/inbox" . ?i)
+                                              ("/ymail/sent" . ?s)
+                                              ("/ymail/trash" . ?t)
+                                              ("/ymail/archive" . ?a)
+                                              ("/ymail/draft" . ?d)
+                                              ))))
+         (make-mu4e-context
+          :name "hotmail" ; akun hotmail
+          :enter-func (lambda () (mu4e-message "entering hotmail context"))
+          :leave-func (lambda () (mu4e-message "leaving hotmail context"))
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches
+                           msg '(:from :to :bcc :cc) "christian.alexander@windowslive.com")))
+          :vars '((user-mail-address . "christian.alexander@windowslive.com")
+                  (user-full-name . "Kristian Alexander P")
+                  (mu4e-sent-folder . "/hotmail/sent")
+                  (mu4e-drafts-folder . "/hotmail/draft")
+                  (mu4e-trash-folder . "/hotmail/trash")
+                  (mu4e-maildir-shortcuts . ( ("/hotmail/inbox" . ?i)
+                                              ("/hotmail/sent" . ?s)
+                                              ("/hotmail/trash" . ?t)
+                                              ("/hotmail/archive" . ?a)
+                                              ("/hotmail/draft" . ?d)
+                                              ))))
+         )))
 #+END_SRC
 ** rgb
 #+BEGIN_SRC emacs-lisp
