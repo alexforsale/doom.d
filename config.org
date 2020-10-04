@@ -1,1 +1,314 @@
-README.org
+#+title: Konfigurasi Doom emacs
+#+author: Kristian Alexander P
+#+email: alexforsale@yahoo.com
+
+* Intro
+Bukan untuk dijadikan acuan atau basis /tutorial/, hanya mengupas sedikit dari:
+
+** Emacs
+Sejarah singkat /emacs/ mungkin lebih meyakinkan jika dijelaskan oleh [[https://en.wikipedia.org/wiki/Emacs][/wikipedia/]], saya disini hanya bisa menjelaskan mengapa saya lebih memilih /emacs/ dibandingkan /vim/.
+Ini sangat berkaitan dengan awal perkenalan saya dengan /linux/, ketika itu masih menggunakan [[https://blankonlinux.or.id/index.html][/blankon/]] yang sudah pindah ke /debian/ sebagai basis. Ketika itu saya masih dalam pencarian atau seleksi /program/ untuk mengganti semua /program/ yang tersedia di /OS/ primitif sebelumnya. Kebanyakan yang saya butuhkan hanyalah teks /editor/, /music player/ dan /video player/ pada umumnya untuk penyegaran. Motivasi saya untuk migrasi ke /linux/ pun dikarenakan "lingkungan" /linux/ kelihatannya lebih "nyaman" untuk /oprek - oprek/ /android/ (kala itu baru transisi dari /gingerbread/ ke /ice cream sandwich/).
+Di /OS/ primitif, untuk teks /editor/ saya cuma punya satu pilihan: /notepad++/, jadi sangat mengejutkan kala itu ketika migrasi ke /linux/ ternyata ada [[https://en.wikipedia.org/wiki/Editor_war][perang berkepanjangan]] menyangkut /text editor/.
+Sebagai penghuni baru di negeri /linux/, tentunya saya perlu mengetahui lebih lanjut mengenai kedua belah pihak yang berperang, jadi saya coba satu persatu:
++ [[https://en.wikipedia.org/wiki/Vi][vi]]/[[https://en.wikipedia.org/wiki/Vim_(text_editor)][vim]] :: Entah kala itu di /blankon/ versi mana yang terpasang secara /default/, bisa jadi saya install /vim/ secara manual, yang saya ingat setelah instalasi, coba jalankan di /terminal emulator/, dan /bengong/ melihat konsep /modal editor/. Singkat kata saya menyelesaikan (mungkin) 1/4 dari /vimtutor/ dan menyerah.
+  Tapi saya masih tertarik mengingat mayoritas dari /distro linux/ menyediakan /vi/ atau variannya secara /default/.
++ /emacs/ :: Cukup lama juga saya mempelajari /emacs/, lebih menarik dari /vim/ karena versi /GUI/ nya lebih "masuk akal" ke otak saya yang kala itu masih berorientasi ke "/visual interface/" yang masih "klik sana - sini", setelah sekian lama berada didalam /OS/ primitif. Tapi tetap tidak bertahan lama begitu mengetahui kombinasi /keyboard/ nya yang sangat rumit dan susah diingat. Ditambah pula, /emacs vanilla/ (tanpa konfigurasi sama sekali), benar - benar membingungkan, dan untuk melakukan konfigurasi pun masih ada satu hambatan lagi: [[https://en.wikipedia.org/wiki/Emacs_Lisp][/emacs-lisp/]].
+Jadi saya bertualang entah berapa lama mencoba - coba banyak /editor/ lain (dan juga /distro/ lainnya, bahkan /OS/ lain). Tapi tetap sedikit demi sedikit saya mempelajari /vi/, /vim/ dan /emacs/, karena memang diperlukan:
++ Secara /default/, /key/ navigasi /emacs/ digunakan oleh /bash/ (dan banyak /shell/ lainnya), seperti =C-f=, =C-b= untuk maju dan mundur satu karakter (=C= disini berarti tombol =Control=), =C-a= dan =C-e= untuk ke awal/akhir baris, dan lainnya.
++ Juga secara /default/ (jika tidak dirubah oleh /distro/), perintah ~visudo~ untuk merubah /file/ konfigurasi ~sudo~ menggunakan /vi/.
+Seiring dengan berjalannya waktu, bertambah juga pengetahuan saya tentang /vim/ dan /emacs/, tidak banyak, tapi cukup untuk mencoba menggunakan keduanya secara bersamaan. Dan mungkin sekitar 2012 atau 2013 saya baru bisa menyelesaikan kedua /tutorial/ yang disediakan oleh kedua /program/ tersebut.
+Tapi tetap saya lebih condong ke /emacs/, karena satu hal: =org-mode=, simpelnya merupakan salah satu dari sekian banyak /plugin/ untuk /emacs/, [[https://en.wikipedia.org/wiki/Org-mode][/org-mode/]] awalnya dibuat sebagai /organizer/, /notes/ dan juga untuk /formatting/ berbagai /markup language/. File /readme/ ini, dibuat dengan /org-mode/, dan juga berfungsi sebagai /file/ konfigurasi untuk /doom emacs/!
+
+** Doom Emacs
+[[https://github.com/hlissner/doom-emacs][/Doom Emacs/]], menurut saya, adalah jawaban untuk perang editor yang berkepanjangan diatas. Kompilasi dari banyak /module emacs/ yang sering digunakan, siap pakai tanpa perlu melakukan konfigurasi yang memakan waktu 2 bulan.
+
+*** Konfigurasi doom emacs
+Begitu selesai melakukan instalasi /doom/, secara otomatis akan dibuat satu /directory/ untuk konfigurasi yang berada di salah satu dari:
+- =~/.config/doom=, atau
+- =~/.doom.d=
+Hanya satu dari kedua /directory/ tersebut yang diambil oleh /doom/, bisa disesuaikan dengan merubah /environment variable/ =DOOMDIR=. /Directory/ tersebut akan berisi:
+- init.el :: /file/ ini yang paling awal dievaluasi oleh /emacs/ ketika sesi /emacs/ dimulai; sebelum /file - file/ lainnya di /load/, umumnya selain blok kode ~doom!~, tidak diperlukan penambahan kode lainnya di /file/ ini.
+- config.el :: disini semua konfigurasi /doom/ dilakukan, karena saya [[file:init.el::literate][menggunakan fitur /literate/]] di /file/ =init.el=, /doom/ akan mengambil /file/ =config.org= untuk dijadikan sebagai /file/ konfigurasi, melakukan /parsing/ setiap blok kode /emacs-lisp/ yang ada di /file/ ini.
+- packages.el :: semua konfigurasi menyangkut manajemen /package/ dilakukan disini, juga dengan fitur /literate/, diatur didalam /file/ ini.
+ 
+* Konfigurasi Dasar
+Konfigurasi yang di-/set/ di =~/.doom.d/config.el=, ketika kita melakukan /fresh install/ /doom/.
+
+Menggunakan /lexical binding/ agar /file/ ini berjalan lebih cepat (lengkapnya lihat di post blog [[https://nullprogram.com/blog/2016/12/22/][ini]]).
+#+BEGIN_SRC emacs-lisp :comments no
+;;; config.el -*- lexical-binding: t; -*-
+#+END_SRC
+** Informasi Personal
+Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
+#+BEGIN_SRC emacs-lisp
+(setq user-full-name "Kristian Alexander"
+      user-mail-address "alexforsale@yahoo.com")
+#+END_SRC
+** Font
+#+BEGIN_SRC emacs-lisp
+(ignore-errors
+  (setq doom-font (font-spec :family "Source Code Pro" :size 9)
+        doom-big-font (font-spec :family "Source Code Pro" :size 14)
+        doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 8)
+        doom-serif-font (font-spec :family "Source Serif Pro" :weight 'light)))
+#+END_SRC
+** Theme
+#+BEGIN_SRC emacs-lisp
+(setq doom-theme 'doom-vibrant)
+#+END_SRC
+** Others
+#+BEGIN_SRC emacs-lisp
+(setq org-directory "~/Documents/org"
+      display-line-numbers 'relative)
+#+END_SRC
+*** vterm
+Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=. Karena /package/ ini bawaan dari /doom/, tidak perlu dilakukan penambahan di =package.el=.
+* Kustomisasi Lanjutan
+Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja ditaruh disini agar lebih mudah melakukan /trace/ jika ada yang salah. Karena /doom/ sendiri sebenarnya adalah konfigurasi untuk /emacs/, cukup rumit untuk melihat apa yang salah jika ada miskonfigurasi. Jadi sebaiknya lakukan perubahan satu persatu, gunakan /version control/ untuk mempermudah, seperti /git/. =doom sync= setiap perubahan, /restart emacs/ dan jika tidak ada yang salah, /commit/ perubahan tersebut.
+** selectric mode
+#+BEGIN_SRC emacs-lisp
+(require 'selectric-mode)
+(selectric-mode)
+#+END_SRC
+** pywal
+#+BEGIN_SRC emacs-lisp
+(add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
+#+END_SRC
+** ox-hugo
+/Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog. /Codeblock/ dibawah ini saja sebenarnya hanyalah penambahan /function/ yang nantinya dipanggil didalam =org-capture-templates=.
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'org-capture
+  (defun org-hugo-new-subtree-post-capture-template ()
+    "Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information."
+    (let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+           (date (format-time-string (org-time-stamp-format :long :inactive) (org-current-time)))
+           (title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+           (fname (org-hugo-slug title)))
+      (mapconcat #'identity
+                 `(
+                   ,(concat "* TODO " title)
+                   ":PROPERTIES:"
+                   ,(concat ":EXPORT_FILE_NAME: " fname)
+                   ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
+                   ":END:"
+                   "%?\n")                ;Place the cursor here finally
+                 "\n"))))
+#+END_SRC
+
+*** Alur Workflow dari ox-hugo
+Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=, akan ada satu pilihan /template/ =[h]= untuk /Hugo/ (yang konfigurasinya dibuat [[*org-capture-templates][disini]]). Didalammnya ada tambahan pilihan untuk entri /New Project/ atau /New blogpost/, jika dipilih, keduanya akan melakukan penambahan /heading/ di file =~/Projects/personal/blog/index.org=, disini lokasi dari /blog/ saya. Bedanya pilihan /New Project/ akan membuat /heading/ baru dibawah /heading/ =Projects= yang sudah ada didalam file =index.org=, sebaliknya juga, pilihan /New blogpost/ akan membuat heading baru dibawah /heading/ =Post=.
+** org-mode
+Beberapa konfigurasi umum:
+#+BEGIN_SRC emacs-lisp
+(setq org-log-done "time"
+      org-log-done-with-time 't)
+#+END_SRC
+
+/Default/ nya =diary-file= berada didalam /directory/ =~/.emacs.d=.
+#+BEGIN_SRC emacs-lisp
+(after! org
+(setq diary-file "~/Documents/org/diary.org"))
+#+END_SRC
+*** org-capture-templates
+/List/ /templates/ dibawah ini sebagian besar merupakan bawaan dari /doom/,hanya diberi tambahan 2 /items/, =hb= untuk membuat /post/ baru di /blog/, dan =hp= untuk membuat /page project/ baru. Untuk =org-capture-todo-file= /default/ nya adalah /todo.org/, =org-capture-notes-file= adalah /notes.org/, dan =org-capture-journal-file= adalah /journal.org/, semua berada didalam /directory/ yang diset didalam /variable/ =org-directory=.
+#+BEGIN_SRC emacs-lisp
+(after! org-capture
+(setq org-capture-templates
+ '(("t" "Personal todo" entry
+  (file+headline +org-capture-todo-file "Inbox")
+  "* [ ] %?\n%i\n%a" :prepend t)
+ ("n" "Personal notes" entry
+  (file+headline +org-capture-notes-file "Inbox")
+  "* %u %?\n%i\n%a" :prepend t)
+ ("j" "Journal" entry
+  (file+olp+datetree +org-capture-journal-file)
+  "* %U %?\n%i\n%a" :prepend t)
+ ("p" "Templates for projects")
+ ("pt" "Project-local todo" entry
+  (file+headline +org-capture-project-todo-file "Inbox")
+  "* TODO %?\n%i\n%a" :prepend t)
+ ("pn" "Project-local notes" entry
+  (file+headline +org-capture-project-notes-file "Inbox")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("pc" "Project-local changelog" entry
+  (file+headline +org-capture-project-changelog-file "Unreleased")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("o" "Centralized templates for projects")
+ ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+ ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+ ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)
+("h" "Hugo")
+("hp" "New Project" entry (file+olp "~/Projects/personal/blog/index.org" "Projects")
+(function org-hugo-new-subtree-post-capture-template))
+("hb" "New blogpost" entry (file+olp "~/Projects/personal/blog/index.org" "Post")
+(function org-hugo-new-subtree-post-capture-template))
+)))
+#+END_SRC
+** Email
+Konfigurasi untuk /mu4e/ berkaitan dengan konfigurasi di =~/.mbsyncrc=.
+ #+BEGIN_SRC emacs-lisp
+(after! mu4e
+  (setq
+   sendmail-program "msmtp"
+   send-mail-function 'smtpmail-send-it
+   message-sendmail-f-is-evil t
+   message-sendmail-extra-arguments '("--read-envelope-from")
+   message-send-mail-function 'message-send-mail-with-sendmail
+   mu4e-maildir "~/.mail"
+   mu4e-attachment-dir "~/Downloads"
+   mu4e-get-mail-command  "mbsync -a"))
+#+END_SRC
+
+Kustomisasi /context/:
+#+BEGIN_SRC emacs-lisp
+(after! mu4e
+  (setq mu4e-compose-context-policy 'always-ask)
+  (setq mu4e-contexts
+        (list
+         (make-mu4e-context
+          :name "gmail" ; akun gmail
+          :enter-func (lambda () (mu4e-message "entering gmail context"))
+          :leave-func (lambda () (mu4e-message "leaving gmail context"))
+          :match-func (lambda (msg)
+                         (when msg
+                           (mu4e-message-contact-field-matches
+                            msg '(:from :to :bcc :cc) "alexarians@gmail.com")))
+          :vars '((user-mail-address . "alexarians@gmail.com")
+                  (user-full-name . "Kristian Alexander P")
+                  (mu4e-sent-folder . "/gmail/sent")
+                  (mu4e-drafts-folder . "/gmail/draft")
+                  (mu4e-trash-folder. "/gmail/trash")
+                  (mu4e-maildir-shortcuts . ( ("/gmail/inbox" . ?i)
+                                              ("/gmail/sent" . ?s)
+                                              ("/gmail/trash" . ?t)
+                                              ("/gmail/archive" . ?a)
+                                              ("/gmail/draft" . ?d)
+                                              ))))
+         (make-mu4e-context
+          :name "yahoo" ; akun yahoo
+          :enter-func (lambda () (mu4e-message "entering yahoo context"))
+          :leave-func (lambda () (mu4e-message "leaving yahoo context"))
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches
+                           msg '(:from :to :bcc :cc) "alexforsale@yahoo.com")))
+          :vars '((user-mail-address . "alexforsale@yahoo.com")
+                  (user-full-name . "Kristian Alexander P")
+                  (mu4e-sent-folder . "/yahoo/sent")
+                  (mu4e-drafts-folder . "/yahoo/draft")
+                  (mu4e-trash-folder . "/yahoo/trash")
+                  (mu4e-maildir-shortcuts . ( ("/yahoo/inbox" . ?i)
+                                              ("/yahoo/sent" . ?s)
+                                              ("/yahoo/trash" . ?t)
+                                              ("/yahoo/archive" . ?a)
+                                              ("/yahoo/draft" . ?d)
+                                              ))))
+         (make-mu4e-context
+          :name "Ymail" ; akun ymail
+          :enter-func (lambda () (mu4e-message "entering ymail context"))
+          :leave-func (lambda () (mu4e-message "leaving ymail context"))
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches
+                           msg '(:from :to :bcc :cc) "christian.alexander@ymail.com")))
+          :vars '((user-mail-address . "christian.alexander@ymail.com")
+                  (user-full-name . "Kristian Alexander P")
+                  (mu4e-sent-folder . "/ymail/sent")
+                  (mu4e-drafts-folder . "/ymail/draft")
+                  (mu4e-trash-folder . "/ymail/trash")
+                  (mu4e-maildir-shortcuts . ( ("/ymail/inbox" . ?i)
+                                              ("/ymail/sent" . ?s)
+                                              ("/ymail/trash" . ?t)
+                                              ("/ymail/archive" . ?a)
+                                              ("/ymail/draft" . ?d)
+                                              ))))
+         (make-mu4e-context
+          :name "hotmail" ; akun hotmail
+          :enter-func (lambda () (mu4e-message "entering hotmail context"))
+          :leave-func (lambda () (mu4e-message "leaving hotmail context"))
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches
+                           msg '(:from :to :bcc :cc) "christian.alexander@windowslive.com")))
+          :vars '((user-mail-address . "christian.alexander@windowslive.com")
+                  (user-full-name . "Kristian Alexander P")
+                  (mu4e-sent-folder . "/hotmail/sent")
+                  (mu4e-drafts-folder . "/hotmail/draft")
+                  (mu4e-trash-folder . "/hotmail/trash")
+                  (mu4e-maildir-shortcuts . ( ("/hotmail/inbox" . ?i)
+                                              ("/hotmail/sent" . ?s)
+                                              ("/hotmail/trash" . ?t)
+                                              ("/hotmail/archive" . ?a)
+                                              ("/hotmail/draft" . ?d)
+                                              ))))
+         )))
+#+END_SRC
+** rgb
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'rainbow-mode-hook
+  (hl-line-mode (if rainbow-mode -1 +1)))
+#+END_SRC
+* Packages
+:PROPERTIES:
+:header-args: emacs-lisp :tangle "packages.el" :comment link
+:END:
+Semua /code blocks/ yang berada dibawah /header ini akan masuk kedalam /file/ =packages.el=, yang /default/-nya hanya berisi komentar saja.
+Instalasi /package/ di /doom/ dimulai dengan memasukkan nama /file/ nya kedalam file =packages.el= dan setelahnya melakukan perintah =doom sync= di /command line/, dan /restart/ sesi /emacs/.
+Instalai /package/ dari /repo/ /MELPA/, /ELPA/, atau /emacsmirror/:
+#+BEGIN_EXAMPLE
+(package! namapackage)
+#+END_EXAMPLE
+Instalasi /package/ langsung dari /repo remote/ /git/, kita perlu mencantumkan =:recipe=. Dokumentasi lengkapnya di [https://github.com/raxod502/straight.el#the-recipe-format]:
+#+BEGIN_EXAMPLE
+(package! namapackage
+  :recipe (:host github :repo "username/repo"))
+#+END_EXAMPLE
+Untuk menonaktifkan /package/ bawaan dari /doom/, bisa dengan tambahan /property/ =:disable=:
+#+BEGIN_EXAMPLE
+(package! namapackagebuiltin :disable t)
+#+END_EXAMPLE
+Kita bisa /override/ /package/ bawaan dari /doom/ tanpa harus menyantumkan semua /property/ untuk =:recipe=. Semua /property/ lainnya akan dibawa dari /doom/ atau MELPA/ELPA/Emacsmirror:
+#+BEGIN_EXAMPLE
+(package! namapackagebuiltin :recipe (:nonrecursive t))
+(package! namapackagebuiltin2 :recipe (:repo "namafork/package"))
+#+END_EXAMPLE
+Gunakan =:branch= untuk instalasi /package/ dari /branch/ tertentu atau /tag/ tertentu. Ini diperlukan untuk /package/ yang /branch default/ nya bukan =master=.
+#+BEGIN_EXAMPLE
+(package! namapackagebuiltin :recipe (:branch "develop"))
+#+END_EXAMPLE
+Gunakan =:pin= untuk menentukan /commit/ tertentu.
+#+BEGIN_EXAMPLE
+(package! namapackagebuiltin :pin "1a2b3c4d5e")
+#+END_EXAMPLE
+Dan gunakan =unpin= untuk melepaskan =:pin=
+#+BEGIN_EXAMPLE
+(unpin! namapackage)
+(unpin! namapackage namapackage2)
+#+END_EXAMPLE
+
+** Fun
+*** selectric-mode
+/Sound effect/ mesin ketik.
+#+BEGIN_SRC emacs-lisp
+(package! selectric-mode)
+#+END_SRC
+*** theme-magic
+/Package/ ini berfungsi untuk mengaplikasikan /theme/ /emacs/ ke seluruh /OS/ (saat ini baru untuk /linux/ dan /mac/).
+/Dependency/:
+- /package/ /python/ =pywal=.
+  Dan /pywal/ juga memiliki /dependencies/:
+  - /linux/, /bsd/ atau /mac/ /OS.
+  - /python/ (tentunya).
+  - /imagemagick/.
+  - /pidof/
+  - aplikasi /wallpaper/, (bisa bawaan dari /desktop environment/ seperti /mate/, /gnome/, /xfce/, dll atau universal seperti /feh/ atau /nitrogen/).
+#+BEGIN_SRC emacs-lisp
+(package! theme-magic)
+#+END_SRC
+**** Set Wallpaper
+Agar /setup/ ini bisa berjalan otomatis, untuk penggunaan pertama kali kita perlu merubah /wallpaper/ secara manual menggunakan perintah =wal -i /path/ke/gambar.png= sebelum dapat melakukan /exporting theme/ dari /emacs/. Dan setelahnya /wallpaper/ tersebut akan tersimpan didalam /cache/ /pywal/, perubahan theme bisa dilakukan dengan perintah =M-x theme-magic-from-emacs=.
+**** Restoring Theme
+/Pywal/ hanya berlaku untuk sesi yang berjalan saat itu saja. Jika ingin /themes/ bertahan setiap /reboot/, jalankan perintah =wal -R= di /shell/. Proses ini dapat di otomatisasi dengan menggunakan /script/ atau /startup config/ dari /shell/ yang bersangkutan, atau melalui /file/ =~/.xprofile=.
+Dan jika menggunakan /setup/ seperti [[*theme-magic][ini]], perubahan /theme/ didalam /emacs/ akan otomatis merubah semua tampilan di /os/.
+Cek dokumentasi lengkap di [[https://github.com/dylanaraps/pywal][repo]] untuk detail mengenai kustomisasi ke berbagai aplikasi, /window-manager/, dan lainnya.
