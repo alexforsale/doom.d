@@ -249,6 +249,11 @@ Kustomisasi /context/:
 (add-hook! 'rainbow-mode-hook
   (hl-line-mode (if rainbow-mode -1 +1)))
 #+END_SRC
+** editorconfig
+#+begin_src emacs-lisp
+(editorconfig-mode 1)
+#+end_src
+
 * Packages
 :PROPERTIES:
 :header-args: emacs-lisp :tangle "packages.el" :comment link
@@ -312,3 +317,5 @@ Agar /setup/ ini bisa berjalan otomatis, untuk penggunaan pertama kali kita perl
 /Pywal/ hanya berlaku untuk sesi yang berjalan saat itu saja. Jika ingin /themes/ bertahan setiap /reboot/, jalankan perintah =wal -R= di /shell/. Proses ini dapat di otomatisasi dengan menggunakan /script/ atau /startup config/ dari /shell/ yang bersangkutan, atau melalui /file/ =~/.xprofile=.
 Dan jika menggunakan /setup/ seperti [[*theme-magic][ini]], perubahan /theme/ didalam /emacs/ akan otomatis merubah semua tampilan di /os/.
 Cek dokumentasi lengkap di [[https://github.com/dylanaraps/pywal][repo]] untuk detail mengenai kustomisasi ke berbagai aplikasi, /window-manager/, dan lainnya.
+*** editorconfig
+(package! editorconfig)
