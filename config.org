@@ -47,8 +47,8 @@ Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
 ** Font
 #+BEGIN_SRC emacs-lisp
 (ignore-errors
-  (setq doom-font (font-spec :family "Source Code Pro" :size 9)
-        doom-big-font (font-spec :family "Source Code Pro" :size 14)
+  (setq doom-font (font-spec :family "Fantasque Sans Mono" :size 9)
+        doom-big-font (font-spec :family "Fantasque Sans Mono" :size 14)
         doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 8)
         doom-serif-font (font-spec :family "Source Serif Pro" :weight 'light)))
 #+END_SRC
