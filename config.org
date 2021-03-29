@@ -72,7 +72,7 @@ Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja dit
 #+END_SRC
 ** pywal
 #+BEGIN_SRC emacs-lisp
-(add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
+;(add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
 #+END_SRC
 ** ox-hugo
 /Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog. /Codeblock/ dibawah ini saja sebenarnya hanyalah penambahan /function/ yang nantinya dipanggil didalam =org-capture-templates=.
