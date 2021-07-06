@@ -146,104 +146,281 @@ Beberapa konfigurasi umum:
 )))
 #+END_SRC
 ** Email
-Konfigurasi untuk /mu4e/ berkaitan dengan konfigurasi di =~/.mbsyncrc=.
- #+BEGIN_SRC emacs-lisp
-(after! mu4e
-  (setq
-   sendmail-program "msmtp"
-   send-mail-function 'smtpmail-send-it
-   message-sendmail-f-is-evil t
-   message-sendmail-extra-arguments '("--read-envelope-from")
-   message-send-mail-function 'message-send-mail-with-sendmail
-   mu4e-maildir "~/.mail"
-   mu4e-attachment-dir "~/Downloads"
-   mu4e-get-mail-command  "mbsync -a"))
-#+END_SRC
+*** =mu4e= + =isync=
+**** Konfigurasi System
+***** archlinux
+- Instalasi Aplikasi
+#+begin_src shell :tangle no
+sudo pacman -S isync mu msmtp
+#+end_src
+- =mbsyncrc=
+  Saya menggunakan 4 /email/ yang disimpan didalam ~/var/mail/alexforsale<nama akun>~
+  #+begin_example
+IMAPAccount gmail
+# Address to connect to
+Host imap.gmail.com
+User alexarians@gmail.com
+# Pass ***************
+# To store the password in an encrypted file use PassCmd instead of Pass
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.local/share/mail/mailpass-gmail.gpg"
+#
+# Use SSL
+SSLType IMAPS
+# The following line should work. If get certificate errors, uncomment the two following lines and read the "Troubleshooting" section.
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+#CertificateFile ~/.cert/imap.gmail.com.pem
+#CertificateFile ~/.cert/Equifax_Secure_CA.pem
 
-Kustomisasi /context/:
-#+BEGIN_SRC emacs-lisp
-(after! mu4e
-  (setq mu4e-compose-context-policy 'always-ask)
-  (setq mu4e-contexts
-        (list
-         (make-mu4e-context
-          :name "gmail" ; akun gmail
-          :enter-func (lambda () (mu4e-message "entering gmail context"))
-          :leave-func (lambda () (mu4e-message "leaving gmail context"))
-          :match-func (lambda (msg)
-                         (when msg
-                           (mu4e-message-contact-field-matches
-                            msg '(:from :to :bcc :cc) "alexarians@gmail.com")))
-          :vars '((user-mail-address . "alexarians@gmail.com")
-                  (user-full-name . "Kristian Alexander P")
-                  (mu4e-sent-folder . "/gmail/sent")
-                  (mu4e-drafts-folder . "/gmail/draft")
-                  (mu4e-trash-folder. "/gmail/trash")
-                  (mu4e-maildir-shortcuts . ( ("/gmail/inbox" . ?i)
-                                              ("/gmail/sent" . ?s)
-                                              ("/gmail/trash" . ?t)
-                                              ("/gmail/archive" . ?a)
-                                              ("/gmail/draft" . ?d)
-                                              ))))
-         (make-mu4e-context
-          :name "yahoo" ; akun yahoo
-          :enter-func (lambda () (mu4e-message "entering yahoo context"))
-          :leave-func (lambda () (mu4e-message "leaving yahoo context"))
-          :match-func (lambda (msg)
-                        (when msg
-                          (mu4e-message-contact-field-matches
-                           msg '(:from :to :bcc :cc) "alexforsale@yahoo.com")))
-          :vars '((user-mail-address . "alexforsale@yahoo.com")
-                  (user-full-name . "Kristian Alexander P")
-                  (mu4e-sent-folder . "/yahoo/sent")
-                  (mu4e-drafts-folder . "/yahoo/draft")
-                  (mu4e-trash-folder . "/yahoo/trash")
-                  (mu4e-maildir-shortcuts . ( ("/yahoo/inbox" . ?i)
-                                              ("/yahoo/sent" . ?s)
-                                              ("/yahoo/trash" . ?t)
-                                              ("/yahoo/archive" . ?a)
-                                              ("/yahoo/draft" . ?d)
-                                              ))))
-         (make-mu4e-context
-          :name "Ymail" ; akun ymail
-          :enter-func (lambda () (mu4e-message "entering ymail context"))
-          :leave-func (lambda () (mu4e-message "leaving ymail context"))
-          :match-func (lambda (msg)
-                        (when msg
-                          (mu4e-message-contact-field-matches
-                           msg '(:from :to :bcc :cc) "christian.alexander@ymail.com")))
-          :vars '((user-mail-address . "christian.alexander@ymail.com")
-                  (user-full-name . "Kristian Alexander P")
-                  (mu4e-sent-folder . "/ymail/sent")
-                  (mu4e-drafts-folder . "/ymail/draft")
-                  (mu4e-trash-folder . "/ymail/trash")
-                  (mu4e-maildir-shortcuts . ( ("/ymail/inbox" . ?i)
-                                              ("/ymail/sent" . ?s)
-                                              ("/ymail/trash" . ?t)
-                                              ("/ymail/archive" . ?a)
-                                              ("/ymail/draft" . ?d)
-                                              ))))
-         (make-mu4e-context
-          :name "hotmail" ; akun hotmail
-          :enter-func (lambda () (mu4e-message "entering hotmail context"))
-          :leave-func (lambda () (mu4e-message "leaving hotmail context"))
-          :match-func (lambda (msg)
-                        (when msg
-                          (mu4e-message-contact-field-matches
-                           msg '(:from :to :bcc :cc) "christian.alexander@windowslive.com")))
-          :vars '((user-mail-address . "christian.alexander@windowslive.com")
-                  (user-full-name . "Kristian Alexander P")
-                  (mu4e-sent-folder . "/hotmail/sent")
-                  (mu4e-drafts-folder . "/hotmail/draft")
-                  (mu4e-trash-folder . "/hotmail/trash")
-                  (mu4e-maildir-shortcuts . ( ("/hotmail/inbox" . ?i)
-                                              ("/hotmail/sent" . ?s)
-                                              ("/hotmail/trash" . ?t)
-                                              ("/hotmail/archive" . ?a)
-                                              ("/hotmail/draft" . ?d)
-                                              ))))
-         )))
-#+END_SRC
+IMAPAccount yahoo
+Host imap.mail.yahoo.com
+User alexforsale@yahoo.com
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.local/share/mail/mailpass-yahoo.gpg"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+PipelineDepth 5
+
+IMAPAccount ymail
+Host imap.mail.yahoo.com
+User christian.alexander@ymail.com
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.local/share/mail/mailpass-ymail.gpg"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+PipelineDepth 5
+
+IMAPAccount hotmail
+Host imap-mail.outlook.com
+User christian.alexander@windowslive.com
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.local/share/mail/mailpass-hotmail.gpg"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+SubFolders Verbatim
+# The trailing "/" is important
+Path /var/spool/mail/alexforsale/gmail/
+Inbox /var/spool/mail/alexforsale/gmail/Inbox
+
+Channel gmail-sent
+Far :gmail-remote:"[Gmail]/Sent Mail"
+Near :gmail-local:sent
+Create Near
+
+Channel gmail-drafts
+Far :gmail-remote:"[Gmail]/Drafts"
+Near :gmail-local:drafts
+Create Near
+
+Channel gmail-allmail
+Far :gmail-remote:"[Gmail]/All Mail"
+Near :gmail-local:archived
+Create Near
+
+Channel gmail-trash
+Far :gmail-remote:"[Gmail]/Trash"
+Near :gmail-local:trash
+Create Near
+
+Channel gmail-default
+Far :gmail-remote:
+Near :gmail-local:
+# Exclude everything under the internal [Gmail] folder, except the interesting folders
+#Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns * ![Gmail]* #"[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+# Or include everything
+#Patterns *
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+# Save the synchronization state files in the relevant directory
+SyncState *
+
+Group gmail
+Channel gmail-default
+Channel gmail-sent
+Channel gmail-drafts
+Channel gmail-trash
+Channel gmail-allmail
+
+IMAPStore yahoo-remote
+Account yahoo
+
+MaildirStore yahoo-local
+SubFolders Verbatim
+Path /var/spool/mail/alexforsale/yahoo/
+Inbox /var/spool/mail/alexforsale/yahoo/Inbox
+
+Channel yahoo
+Far :yahoo-remote:
+Near :yahoo-local:
+Patterns *
+Create Both
+
+IMAPStore hotmail-remote
+Account hotmail
+
+MaildirStore hotmail-local
+SubFolders Verbatim
+Path /var/spool/mail/alexforsale/hotmail/
+Inbox /var/spool/mail/alexforsale/hotmail/Inbox
+
+Channel hotmail
+Far :hotmail-remote:
+Near :hotmail-local:
+Patterns *
+Create Both
+
+IMAPStore ymail-remote
+Account ymail
+
+MaildirStore ymail-local
+SubFolders Verbatim
+Path /var/spool/mail/alexforsale/ymail/
+Inbox /var/spool/mail/alexforsale/ymail/Inbox
+
+Channel ymail
+Far :ymail-remote:
+Near :ymail-local:
+Patterns *
+Create Both
+  #+end_example
+
+  Untuk detil masing - masing barisnya bisa dilihat dari /manpage/ =mbsync=, dengan perintah ~man 1 mbsync~. Yang perlu diperhatikan adalah untuk /gmail/, saya menggunakan lebih dari satu /channel. Ini dikarenakan /gmail/ memiliki /folder default/ yang diawali dengan =[Gmail]/<namafolder>=, sebenarnya tidak masalah, saya menghilangkan /prefix [Gmail]/ tersebut hanya untuk kemudahan mengaksesnya dari /command line/.
+  Untuk /channel/ /yahoo/ dan /ymail/, perlu menggunakan =PipelineDepth 5= untuk menghindari /error/:
+  #+begin_example
+UID FETCH 370 (BODY.PEEK[])' returned an error: NO [UNAVAILABLE] UID FETCH Service is temporarily not available
+  #+end_example
+  /Fix/ ini didapat dari [[https://sourceforge.net/p/isync/mailman/isync-devel/thread/CAH%2BzNA9QH5OfHdA_JatG0Z0tqUU5gM5_KOjCrUjy6oOfTt9WGQ%40mail.gmail.com/#msg36754079][sini]]. Dan juga untuk beberapa /mail provider/ melakukan /limiting/, yang berarti kita perlu beberapa kali mengulang perintah ~mbsync -a~ atau ~mbsync <namaakun>~.
+  /Password/ untuk masing - masing /account/ disimpan dalam bentuk teks, namun di/encrypt/ mengunakan /gpg/. Dengan /emacs/ cukup buka /file/ dengan ektensi berakhiran =.gpg=, selama kita telah melakukan konfigurasi /gpg key/ otomatis akan terenkripsi setelah /file/ tersebut di/save/. File ini juga yang diakses oleh =msmtp= untuk memperoleh /password/ setiap akun nya.
+- =msmtp=
+  Untuk detil konfigurasinya bisa dilihat di ~man 1 msmtp~.
+  #+begin_example
+# Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        ~/.local/share/mail/msmtp.log
+
+# Gmail
+account        gmail
+host           smtp.gmail.com
+port           587
+from           alexarians@gmail.com
+user           alexarians
+passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.local/share/mail/mailpass-gmail.gpg"
+
+# Yahoo service
+account        yahoo
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+host           smtp.mail.yahoo.com
+port           587
+from           alexforsale@yahoo.com
+user           alexforsale
+passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.local/share/mail/mailpass-yahoo.gpg"
+
+# Hotmail
+account        hotmail
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+#tls_certcheck  off
+host           smtp-mail.outlook.com
+port           587
+from           christian.alexander@windowslive.com
+user           christian.alexander@windowslive.com
+passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.local/share/mail/mailpass-hotmail.gpg"
+
+# Ymail service
+account        ymail
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+host           smtp.mail.yahoo.com
+port           587
+from           christian.alexander@ymail.com
+user           christian.alexander@ymail.com
+passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.local/share/mail/mailpass-ymail.gpg"
+
+# Set a default account
+account default : yahoo
+  #+end_example
+**** /workflow/
+- Setiap /email/ yang telah dikonfigurasi didalam =~/.mbsyncrc= perlu di/pull/ secara manual terlebih dahulu dengan perintah:
+#+begin_src shell
+mbsync -a
+#+end_src
+  Proses ini akan memakan waktu cukup lama jika akun - akun tersebut memiliki banyak /email/.
+- Setelah semua /email/ disimpan secara lokal, jalankan 2 perintah =mu= yang akan melakukan inisialisasi dan /indexing/ setiap akun - akun email tersebut:
+  #+begin_src shell
+mu init --maildir /var/mail/alexforsale --my-address alexforsale@yahoo.com \
+    --my-address alexarians@gmail.com \
+    --my-address christian.alexander@ymail.com \
+    --my-address christian.alexander@windowslive.com
+mu index
+  #+end_src
+**** Konfigurasi /emacs/
+Konfigurasi untuk /mu4e/ berkaitan dengan konfigurasi di =~/.mbsyncrc=.
+/Set/ =mbsync= sebagai /backend/, ini merupakan defaultnya jadi tidak perlu diset secara eksplisit didalam konfigurasi /emacs/.
+#+begin_src emacs-lisp :tangle no
+(setq +mu4e-backend 'mbsync)
+#+end_src
+
+Selanjutnya adalah konfigurasi untuk setiap akunnya, konfigurasi disini mengikuti konfigurasi yang dibuat didalam =~/.mbsyncrc=.
+- =gmail=
+  #+begin_src emacs-lisp
+(set-email-account! "gmail"
+  '((mu4e-sent-folder       . "/gmail/sent")
+    (mu4e-drafts-folder     . "/gmail/drafts")
+    (mu4e-trash-folder      . "/gmail/trash")
+    (mu4e-refile-folder     . "/gmail/archived")
+    (smtpmail-smtp-user     . "alexarians@gmail.com")
+    (user-mail-address      . "alexarians@gmail.com")    ;; only needed for mu < 1.4
+    (mu4e-compose-signature . "---\nKristian Alexander P"))
+  t)
+  #+end_src
+- =ymail=
+  #+begin_src emacs-lisp
+(set-email-account! "ymail"
+  '((mu4e-sent-folder       . "/ymail/Sent")
+    (mu4e-drafts-folder     . "/ymail/Draft")
+    (mu4e-trash-folder      . "/ymail/Trash")
+    (mu4e-refile-folder     . "/ymail/Archive")
+    (smtpmail-smtp-user     . "christian.alexander@ymail.com")
+    (user-mail-address      . "christian.alexander@ymail.com")    ;; only needed for mu < 1.4
+    (mu4e-compose-signature . "---\nKristian Alexander P"))
+  t)
+  #+end_src
+
+- =yahoo=
+  #+begin_src emacs-lisp
+(set-email-account! "yahoo"
+  '((mu4e-sent-folder       . "/yahoo/Sent")
+    (mu4e-drafts-folder     . "/yahoo/Draft")
+    (mu4e-trash-folder      . "/yahoo/Trash")
+    (mu4e-refile-folder     . "/yahoo/Archive")
+    (smtpmail-smtp-user     . "alexforsale@yahoo.com")
+    (user-mail-address      . "alexforsale@yahoo.com")    ;; only needed for mu < 1.4
+    (mu4e-compose-signature . "---\nKristian Alexander P"))
+  t)
+  #+end_src
+
+- =hotmail=
+  #+begin_src emacs-lisp
+(set-email-account! "hotmail"
+  '((mu4e-sent-folder       . "/hotmail/Sent")
+    (mu4e-drafts-folder     . "/hotmail/Drafts")
+    (mu4e-trash-folder      . "/hotmail/Deleted")
+    (mu4e-refile-folder     . "/hotmail/Archive")
+    (smtpmail-smtp-user     . "christian.alexander@windowslive.com")
+    (user-mail-address      . "christian.alexander@windowslive.com")    ;; only needed for mu < 1.4
+    (mu4e-compose-signature . "---\nKristian Alexander P"))
+  t)
+  #+end_src
+
 ** rgb
 #+BEGIN_SRC emacs-lisp
 (add-hook! 'rainbow-mode-hook
