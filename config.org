@@ -99,52 +99,10 @@ See `org-capture-templates' for more information."
 *** Alur Workflow dari ox-hugo
 Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=, akan ada satu pilihan /template/ =[h]= untuk /Hugo/ (yang konfigurasinya dibuat [[*org-capture-templates][disini]]). Didalammnya ada tambahan pilihan untuk entri /New Project/ atau /New blogpost/, jika dipilih, keduanya akan melakukan penambahan /heading/ di file =~/Projects/personal/blog/index.org=, disini lokasi dari /blog/ saya. Bedanya pilihan /New Project/ akan membuat /heading/ baru dibawah /heading/ =Projects= yang sudah ada didalam file =index.org=, sebaliknya juga, pilihan /New blogpost/ akan membuat heading baru dibawah /heading/ =Post=.
 ** org-mode
-Beberapa konfigurasi umum:
-#+BEGIN_SRC emacs-lisp
-(setq org-log-done "time"
-      org-log-done-with-time 't)
-#+END_SRC
-
-/Default/ nya =diary-file= berada didalam /directory/ =~/.emacs.d=.
-#+BEGIN_SRC emacs-lisp
-(after! org
-(setq diary-file "~/Documents/org/diary.org"))
-#+END_SRC
-*** org-capture-templates
-/List/ /templates/ dibawah ini sebagian besar merupakan bawaan dari /doom/,hanya diberi tambahan 2 /items/, =hb= untuk membuat /post/ baru di /blog/, dan =hp= untuk membuat /page project/ baru. Untuk =org-capture-todo-file= /default/ nya adalah /todo.org/, =org-capture-notes-file= adalah /notes.org/, dan =org-capture-journal-file= adalah /journal.org/, semua berada didalam /directory/ yang diset didalam /variable/ =org-directory=.
-#+BEGIN_SRC emacs-lisp
-(after! org-capture
-(setq org-capture-templates
- '(("t" "Personal todo" entry
-  (file+headline +org-capture-todo-file "Inbox")
-  "* [ ] %?\n%i\n%a" :prepend t)
- ("n" "Personal notes" entry
-  (file+headline +org-capture-notes-file "Inbox")
-  "* %u %?\n%i\n%a" :prepend t)
- ("j" "Journal" entry
-  (file+olp+datetree +org-capture-journal-file)
-  "* %U %?\n%i\n%a" :prepend t)
- ("p" "Templates for projects")
- ("pt" "Project-local todo" entry
-  (file+headline +org-capture-project-todo-file "Inbox")
-  "* TODO %?\n%i\n%a" :prepend t)
- ("pn" "Project-local notes" entry
-  (file+headline +org-capture-project-notes-file "Inbox")
-  "* %U %?\n%i\n%a" :prepend t)
- ("pc" "Project-local changelog" entry
-  (file+headline +org-capture-project-changelog-file "Unreleased")
-  "* %U %?\n%i\n%a" :prepend t)
- ("o" "Centralized templates for projects")
- ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
- ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
- ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)
-("h" "Hugo")
-("hp" "New Project" entry (file+olp "~/Projects/personal/blog/index.org" "Projects")
-(function org-hugo-new-subtree-post-capture-template))
-("hb" "New blogpost" entry (file+olp "~/Projects/personal/blog/index.org" "Post")
-(function org-hugo-new-subtree-post-capture-template))
-)))
-#+END_SRC
+/Set/ ~org-directory~:
+#+begin_src emacs-lisp
+(setq org-directory "~/Documents/google-drive/org")
+#+end_src
 ** Email
 *** =mu4e= + =isync=
 **** Konfigurasi System
@@ -350,7 +308,7 @@ account default : yahoo
   #+end_example
 **** /workflow/
 - Setiap /email/ yang telah dikonfigurasi didalam =~/.mbsyncrc= perlu di/pull/ secara manual terlebih dahulu dengan perintah:
-#+begin_src shell
+#+begin_src shell :tangle no
 mbsync -a
 #+end_src
   Proses ini akan memakan waktu cukup lama jika akun - akun tersebut memiliki banyak /email/.
