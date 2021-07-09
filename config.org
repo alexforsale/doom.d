@@ -477,3 +477,41 @@ Konfigurasi /doom-emacs/, yang saya ubah disini hanyalah /themes/ dan /fonts/, s
 #+begin_src emacs-lisp :tangle no
 (setq all-the-icons-scale-factor 1.1)
 #+end_src
+** =ophints=
+/Operation hinting/. Tidak ada konfigurasi lanjutan.
+** =vc-gutter=
+Tidak ada konfigurasi lanjutan.
+** =vi-tilde-fringe=
+Menampilkan /tilde/ (~), untuk menandakan baris kosong seperti di vi/vim.
+** =window-select=
+/Module/ yang mempermudah dalam memilih /window/ tanpa menggunakan /mouse/. Saya menggunakan /flags/ =+switch-window= karena ketika kita dalam proses /switch/, konten dari setiap /window/ menjadi gelap, hanya ada karakter yang terlihat.
+** =workspaces=
+Fitur /workspace/ didalam /emacs/. Tidak ada konfigurasi lanjutan.
+** =zen=
+Fitur yang menjadi favorit saya saat ini. Dengan ~SPC t Z~, layar hanya akan berisi /window/ yang sedang kita buka.
+** =evil=
+Fitur yang membuat semakin banyak orang menggunakan /emacs/. Dan juga (sayangnya) yang membuat semakin banyak orang yang berkata "/emacs/ itu sebenarnya klone dari vim..."
+** =file-template=
+Fitur /file templating/ yang menggunakan /yasnippet/. Saya masih belum memerlukan fitur ini, jadi tidak ada konfigurasi lanjutan.
+** =fold=
+Fitur simpel, /code folding/, seperti didalam =org-mode=, namun bisa dilakukan hampir di semua /minor mode/.
+** =format=
+Fitur /code formatter/, umumnya untuk bahasa pemrograman. Dependensi yang diperlukan tergantung dari bahasa pemrograman yang digunakan.
+** =multiple-cursors=
+Edit beberapa baris atau kalimat secara bersamaan, dalam =evil-mode= biasanya dengan prefix =g z=.
+** =snippet=
+Didalam /module/ ini fitur dari /yasnippet/ digunakan sepenuhnya. Didalam =evil mode= /snippet/ dapat diakses dengan =SPC i s=.
+** =word-wrap=
+Fitur /word wrapping/ dengan konfigurasi tambahan, /default/-nya tidak di /enabled/ secara global.
+** =dired=
+Konfigurasi tambahan untuk /module dired/ yang merupakan /module/ standar dalam /emacs/. Jika menggunakan /FreeBSD/ memerlukan /package/ =coreutils= yang menyediakan /program/ ~gls~ (implementasi ~ls~ dari /gnu/).
+** =electric=
+Juga merupakan /module/ bawaan dari /emacs/.
+** =undo=
+Juga merupakan /module/ bawaan dari /emacs/, namun dengan tambahan /module/.
+** =vc=
+/Module/ bawaan dari /emacs/.
+** =vterm=
+Sudah dikover di[[*Others][sini]].
+** =syntax=
+/Module flycheck/ dengan kustomisasi /ala/ /doom/.
