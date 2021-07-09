@@ -57,9 +57,6 @@ Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
 (setq doom-theme 'doom-vibrant)
 #+END_SRC
 ** Others
-#+BEGIN_SRC emacs-lisp
-(setq org-directory "~/Documents/org"
-      display-line-numbers 'relative)
 #+END_SRC
 *** vterm
 Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=. Karena /package/ ini bawaan dari /doom/, tidak perlu dilakukan penambahan di =package.el=.
