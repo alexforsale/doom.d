@@ -515,3 +515,9 @@ Juga merupakan /module/ bawaan dari /emacs/, namun dengan tambahan /module/.
 Sudah dikover di[[*Others][sini]].
 ** =syntax=
 /Module flycheck/ dengan kustomisasi /ala/ /doom/.
+** =ansible=
+Memerlukan tambahan /package/ =ansible=, umumnya tersedia di hampir semua /distro/.
+** =editorconfig=
+Butuh /package/ =editorconfig=.
+** =eval=
+/Dependency/-nya tergantung dari bahasa pemograman yang digunakan.
