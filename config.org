@@ -64,7 +64,7 @@ Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian p
 Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja ditaruh disini agar lebih mudah melakukan /trace/ jika ada yang salah. Karena /doom/ sendiri sebenarnya adalah konfigurasi untuk /emacs/, cukup rumit untuk melihat apa yang salah jika ada miskonfigurasi. Jadi sebaiknya lakukan perubahan satu persatu, gunakan /version control/ untuk mempermudah, seperti /git/. =doom sync= setiap perubahan, /restart emacs/ dan jika tidak ada yang salah, /commit/ perubahan tersebut.
 ** selectric mode
 #+BEGIN_SRC emacs-lisp
-(require 'selectric-mode)
+(after! selectric-mode)
 (selectric-mode)
 #+END_SRC
 ** pywal
