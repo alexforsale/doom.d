@@ -313,7 +313,7 @@ mbsync -a
 #+end_src
   Proses ini akan memakan waktu cukup lama jika akun - akun tersebut memiliki banyak /email/.
 - Setelah semua /email/ disimpan secara lokal, jalankan 2 perintah =mu= yang akan melakukan inisialisasi dan /indexing/ setiap akun - akun email tersebut:
-  #+begin_src shell
+  #+begin_src shell :tangle no
 mu init --maildir /var/mail/alexforsale --my-address alexforsale@yahoo.com \
     --my-address alexarians@gmail.com \
     --my-address christian.alexander@ymail.com \
