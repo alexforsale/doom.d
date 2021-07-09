@@ -451,3 +451,18 @@ Dan jika menggunakan /setup/ seperti [[*theme-magic][ini]], perubahan /theme/ di
 Cek dokumentasi lengkap di [[https://github.com/dylanaraps/pywal][repo]] untuk detail mengenai kustomisasi ke berbagai aplikasi, /window-manager/, dan lainnya.
 *** editorconfig
 (package! editorconfig)
+* Module =doom=
+Semua dokumentasi dan konfigurasi dari /module - module/ =doom= disimpan didalam /heading/ ini, untuk kemudahan /maintenance/.
+** =company=
+Fungsi utamanya adalah sebagai /code completion/. Saya menggunakan /flags/ =+tng= yang memungkinkan /completion/ menggunakan ~TAB~. Saya tidak menggunakan konfigurasi lanjutan untuk /module/ ini.
+** =ivy +fuzzy=
+Integrasi ke banyak perintah /emacs/, dan juga /unified interface/ untuk pencarian /project/ dan /replace/, jika menggunakan =ripgrep=.
+*** Dependency
+- /archlinux/
+  #+begin_src shell :tangle no
+  sudo pacman -S --noconfirm --needed ripgrep
+  #+end_src
+- /freebsd/
+  #+begin_src shell :tangle no
+  sudo pkg install -y ripgrep
+  #+end_src
