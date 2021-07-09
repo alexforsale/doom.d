@@ -472,3 +472,8 @@ Konfigurasi /doom-emacs/, yang saya ubah disini hanyalah /themes/ dan /fonts/, s
 /Dashboard/ awal ketika memulai /doom-emacs/. Tidak ada konfigurasi lanjutan
 ** =hl-todo=
 /Syntax highlighting/ untuk /tag/ TODO/FIXME/NOTE dalam beberapa /major-modes/ bahasa /programming/.
+** =modeline=
+/Modeline/ minimalistik ala /doom/. /Eval/ /codeblock/ dibawah ini jika bagian kanan dari /modeline/ tampak terpotong (/default/-nya adalan 1.2).
+#+begin_src emacs-lisp :tangle no
+(setq all-the-icons-scale-factor 1.1)
+#+end_src
