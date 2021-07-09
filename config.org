@@ -466,3 +466,5 @@ Integrasi ke banyak perintah /emacs/, dan juga /unified interface/ untuk pencari
   #+begin_src shell :tangle no
   sudo pkg install -y ripgrep
   #+end_src
+** =doom=
+Konfigurasi /doom-emacs/, yang saya ubah disini hanyalah /themes/ dan /fonts/, sudah dikonfigurasi di[[*Konfigurasi Dasar][sini]].
