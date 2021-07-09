@@ -561,3 +561,9 @@ Butuh /package/ =editorconfig=.
 /Dependency/-nya tergantung dari bahasa pemograman yang digunakan.
 ** =lookup=
 Koleksi dari beberapa /package emacs/ dengan fitur /code navigation/ dan /documentation lookup/. Memiliki =dependencies=: =ripgrep=, =wordnet=, dan =sqlite3=.
+** =lsp=
+Integrasi /language servers/ kedalam /emacs/. /Dependency/-nya sangat tergantung dari /languague/ yang dipilih.
+** =magit=
+/Git/ dalam /emacs/. Tentunya membutuhkan /package/ =git=.
+** =pass=
+Integrasi /password-store/ dalam /emacs/. Di =archlinux= dan beberapa distro lainnya nama /package/-nya =pass=, untuk /FreeBSD/ dengan naman /package/ =password-store=.
