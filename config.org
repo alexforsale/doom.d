@@ -132,7 +132,7 @@ User alexforsale@yahoo.com
 PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.local/share/mail/mailpass-yahoo.gpg"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
-PipelineDepth 5
+PipelineDepth 10
 
 IMAPAccount ymail
 Host imap.mail.yahoo.com
@@ -140,7 +140,7 @@ User christian.alexander@ymail.com
 PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.local/share/mail/mailpass-ymail.gpg"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
-PipelineDepth 5
+PipelineDepth 10
 
 IMAPAccount hotmail
 Host imap-mail.outlook.com
@@ -183,7 +183,7 @@ Far :gmail-remote:
 Near :gmail-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
 #Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
-Patterns * ![Gmail]* #"[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+Patterns "INBOX" ![Gmail]* #"[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
 # Or include everything
 #Patterns *
 # Automatically create missing mailboxes, both locally and on the server
@@ -206,11 +206,49 @@ SubFolders Verbatim
 Path /var/spool/mail/alexforsale/yahoo/
 Inbox /var/spool/mail/alexforsale/yahoo/Inbox
 
-Channel yahoo
+Channel yahoo-default
 Far :yahoo-remote:
 Near :yahoo-local:
-Patterns *
+Patterns "INBOX" !Draft !Sent !Archive !Spam
 Create Both
+SyncState *
+CopyArrivalDate yes
+
+Channel yahoo-sent
+Far :yahoo-remote:"Sent"
+Near :yahoo-local:"Sent"
+Create Near
+CopyArrivalDate yes
+
+Channel yahoo-draft
+Far :yahoo-remote:"Draft"
+Near :yahoo-local:"Draft"
+Create Near
+CopyArrivalDate yes
+
+Channel yahoo-archive
+Far :yahoo-remote:"Archive"
+Near :yahoo-local:"Archive"
+Create Near
+CopyArrivalDate yes
+
+Channel yahoo-bulk
+Far :yahoo-remote:"Bulk Mail"
+Near :yahoo-local:"Bulk Mail"
+Create Near
+CopyArrivalDate yes
+
+Channel yahoo-trash
+Far :yahoo-remote:"Trash"
+Near :yahoo-local:"Trash"
+Create Near
+CopyArrivalDate yes
+
+Group yahoo
+channel yahoo-default
+channel yahoo-sent
+channel yahoo-draft
+channel yahoo-bulk
 
 IMAPStore hotmail-remote
 Account hotmail
@@ -521,3 +559,5 @@ Memerlukan tambahan /package/ =ansible=, umumnya tersedia di hampir semua /distr
 Butuh /package/ =editorconfig=.
 ** =eval=
 /Dependency/-nya tergantung dari bahasa pemograman yang digunakan.
+** =lookup=
+Koleksi dari beberapa /package emacs/ dengan fitur /code navigation/ dan /documentation lookup/. Memiliki =dependencies=: =ripgrep=, =wordnet=, dan =sqlite3=.
