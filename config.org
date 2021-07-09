@@ -452,7 +452,7 @@ Cek dokumentasi lengkap di [[https://github.com/dylanaraps/pywal][repo]] untuk d
 *** editorconfig
 (package! editorconfig)
 * Module =doom=
-Semua dokumentasi dan konfigurasi dari /module - module/ =doom= disimpan didalam /heading/ ini, untuk kemudahan /maintenance/.
+Semua dokumentasi dan konfigurasi dari /module - module/ =doom= disimpan didalam /heading/ ini, untuk kemudahan /maintenance/. Untuk dokumentasi lebih dalam lagi umumnya tersedia /file/ =README.org= didalam /directory/ /modules/ dalam =~/.emacs.d=.
 ** =company=
 Fungsi utamanya adalah sebagai /code completion/. Saya menggunakan /flags/ =+tng= yang memungkinkan /completion/ menggunakan ~TAB~. Saya tidak menggunakan konfigurasi lanjutan untuk /module/ ini.
 ** =ivy +fuzzy=
@@ -468,3 +468,7 @@ Integrasi ke banyak perintah /emacs/, dan juga /unified interface/ untuk pencari
   #+end_src
 ** =doom=
 Konfigurasi /doom-emacs/, yang saya ubah disini hanyalah /themes/ dan /fonts/, sudah dikonfigurasi di[[*Konfigurasi Dasar][sini]].
+** =doom-dashboard=
+/Dashboard/ awal ketika memulai /doom-emacs/. Tidak ada konfigurasi lanjutan
+** =hl-todo=
+/Syntax highlighting/ untuk /tag/ TODO/FIXME/NOTE dalam beberapa /major-modes/ bahasa /programming/.
