@@ -390,7 +390,7 @@ Selanjutnya adalah konfigurasi untuk setiap akunnya, konfigurasi disini mengikut
 
 - =yahoo=
   #+begin_src emacs-lisp
-(set-email-account! "yahoo"
+(set-email-account! "Yahoo"
   '((mu4e-sent-folder       . "/yahoo/Sent")
     (mu4e-drafts-folder     . "/yahoo/Draft")
     (mu4e-trash-folder      . "/yahoo/Trash")
