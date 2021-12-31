@@ -54,7 +54,7 @@ Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
 #+END_SRC
 ** Theme
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-vibrant)
+(setq doom-theme 'doom-solarized-dark)
 #+END_SRC
 ** Others
 #+END_SRC
