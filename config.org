@@ -105,6 +105,18 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
   #+begin_src emacs-lisp
   (setq org-roam-graph-viewer "viewnior")
   #+end_src
+- =org-note=
+  #+begin_src emacs-lisp
+  (setq org-noter-notes-search-path '("~/Documents/google-drive/notes/")
+  #+end_src
+
+** RSS
+Menggunakan /default/ =elfeed=. Berikut konfigurasi agar /search filter/ mencari /feed/ sejauh 1 bulan kebelakang:
+#+begin_src emacs-lisp
+(after! elfeed
+  (setq elfeed-search-filter "@1-month-ago +unread"))
+#+end_src
+/Doom-emacs/ otomatis memakai =org-mode= untuk konfigurasi /feed rss/, dan lokasi /default/-nya di =~org-directory/elfeed.org=.
 ** Email
 *** =mu4e= + =isync=
 **** Konfigurasi System
@@ -428,6 +440,7 @@ Untuk konfigurasi dari =msmtp=:
         message-sendmail-extra-arguments '("--read-envelope-from")
         message-send-mail-function #'message-send-mail-with-sendmail))
 #+end_src
+
 ** rgb
 #+BEGIN_SRC emacs-lisp
 (add-hook! 'rainbow-mode-hook
