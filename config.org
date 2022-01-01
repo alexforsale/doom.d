@@ -96,10 +96,15 @@ See `org-capture-templates' for more information."
 *** Alur Workflow dari ox-hugo
 Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=, akan ada satu pilihan /template/ =[h]= untuk /Hugo/ (yang konfigurasinya dibuat [[*org-capture-templates][disini]]). Didalammnya ada tambahan pilihan untuk entri /New Project/ atau /New blogpost/, jika dipilih, keduanya akan melakukan penambahan /heading/ di file =~/Projects/personal/blog/index.org=, disini lokasi dari /blog/ saya. Bedanya pilihan /New Project/ akan membuat /heading/ baru dibawah /heading/ =Projects= yang sudah ada didalam file =index.org=, sebaliknya juga, pilihan /New blogpost/ akan membuat heading baru dibawah /heading/ =Post=.
 ** org-mode
-/Set/ ~org-directory~:
+- /Set/ ~org-directory~:
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/google-drive/org")
 #+end_src
+- =org-roam=
+  Set /default viewer/ untuk =org-roam-graph-viewer=:
+  #+begin_src emacs-lisp
+  (setq org-roam-graph-viewer "viewnior")
+  #+end_src
 ** Email
 *** =mu4e= + =isync=
 **** Konfigurasi System
@@ -414,6 +419,15 @@ Selanjutnya adalah konfigurasi untuk setiap akunnya, konfigurasi disini mengikut
   t)
   #+end_src
 
+Untuk konfigurasi dari =msmtp=:
+#+begin_src emacs-lisp
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail))
+#+end_src
 ** rgb
 #+BEGIN_SRC emacs-lisp
 (add-hook! 'rainbow-mode-hook
