@@ -163,7 +163,7 @@
         +pandoc
         +pomodoro
         +pretty
-        +roam
+        +roam2
         )
        (php
         +lsp)               ; perl's insecure younger brother
