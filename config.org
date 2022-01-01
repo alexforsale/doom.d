@@ -133,6 +133,7 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
          :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
          :unnarrowed t)
         )
+      )
   #+end_src
 ** =deft=
 #+begin_src emacs-lisp
