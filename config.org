@@ -125,7 +125,11 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
          :target (file+head "%<%Y-%m-%d>.org"
                             "#+title: %<%Y-%m-%d>\n"))))
   #+end_src
-
+** =deft=
+#+begin_src emacs-lisp
+(setq deft-directory org-roam-directory
+      deft-recursive t)
+#+end_src
 ** RSS
 Menggunakan /default/ =elfeed=. Berikut konfigurasi agar /search filter/ mencari /feed/ sejauh 1 bulan kebelakang:
 #+begin_src emacs-lisp
