@@ -106,7 +106,7 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
 ***** archlinux
 - Instalasi Aplikasi
 #+begin_src shell :tangle no
-sudo pacman -S isync mu msmtp
+yay -S isync mu msmtp
 #+end_src
 - =mbsyncrc=
   Saya menggunakan 4 /email/ yang disimpan didalam ~/var/mail/alexforsale<nama akun>~
@@ -155,8 +155,8 @@ Account gmail
 MaildirStore gmail-local
 SubFolders Verbatim
 # The trailing "/" is important
-Path /var/spool/mail/alexforsale/gmail/
-Inbox /var/spool/mail/alexforsale/gmail/Inbox
+Path /home/alexforsale/.mail/gmail/
+Inbox /home/alexforsale/.mail/gmail/Inbox
 
 Channel gmail-sent
 Far :gmail-remote:"[Gmail]/Sent Mail"
@@ -203,8 +203,8 @@ Account yahoo
 
 MaildirStore yahoo-local
 SubFolders Verbatim
-Path /var/spool/mail/alexforsale/yahoo/
-Inbox /var/spool/mail/alexforsale/yahoo/Inbox
+Path /home/alexforsale/.mail/yahoo/
+Inbox /home/alexforsale/.mailyahoo/Inbox
 
 Channel yahoo-default
 Far :yahoo-remote:
@@ -255,8 +255,8 @@ Account hotmail
 
 MaildirStore hotmail-local
 SubFolders Verbatim
-Path /var/spool/mail/alexforsale/hotmail/
-Inbox /var/spool/mail/alexforsale/hotmail/Inbox
+Path /home/alexforsale/.mail/hotmail/
+Inbox /home/alexforsale/.mail/hotmail/Inbox
 
 Channel hotmail
 Far :hotmail-remote:
