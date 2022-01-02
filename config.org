@@ -100,6 +100,31 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/google-drive/org")
 #+end_src
+- Tambah /variable/ =+org-capture-link-file=:
+  #+begin_src emacs-lisp
+(defvar +org-capture-links-file "links.org"
+  "Default target for storing links
+
+  Is relative to 'org-directory', unless it is absolute.")
+  #+end_src
+- /Set variable/ =+org-capture-links-file=:
+  #+begin_src emacs-lisp
+(setq +org-capture-links-file
+      (expand-file-name +org-capture-links-file org-directory))
+  #+end_src
+- Tambahan untuk /org-capture-templates/ tanpa menghapus /default/ dari /doom/:
+  #+begin_src emacs-lisp
+(after! org
+  (setq org-capture-templates (append org-capture-templates
+                                      '(("l" "Link Captures" entry (file+headline +org-capture-links-file "Links")
+                                         "** [[%:link][%:description]]\n:PROPERTIES:\n:Date: %T\n:END:\n%i" :immediate-finish t))
+                                    )
+      ))
+  #+end_src
+- =org-protocol=
+  #+begin_src emacs-lisp
+(setq org-protocol-default-template-key "l")
+  #+end_src
 - =org-roam=
   Set /default viewer/ untuk =org-roam-graph-viewer=:
   #+begin_src emacs-lisp
