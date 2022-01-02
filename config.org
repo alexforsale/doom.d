@@ -132,7 +132,7 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
   #+end_src
 - =org-note=
   #+begin_src emacs-lisp
-  (setq org-noter-notes-search-path '("~/Documents/google-drive/notes/"))
+  (setq org-noter-notes-search-path '("~/Documents/google-drive/org/notes/"))
   #+end_src
 - =org-roam=
   #+begin_src emacs-lisp
