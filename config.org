@@ -128,7 +128,7 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
 - =org-roam=
   Set /default viewer/ untuk =org-roam-graph-viewer=:
   #+begin_src emacs-lisp
-  (setq org-roam-graph-viewer "viewnior")
+  (setq org-roam-graph-viewer "xdg-open")
   #+end_src
 - =org-note=
   #+begin_src emacs-lisp
