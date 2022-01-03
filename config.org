@@ -100,6 +100,12 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/google-drive/org")
 #+end_src
+- /Map/ =Alt-n= dan =Alt-p= untuk navigasi heading
+  #+begin_src emacs-lisp
+(map! :map org-mode-map
+      "M-n" #'outline-next-visible-heading
+      "M-p" #'outline-previous-visible-heading)
+  #+end_src
 - Tambah /variable/ =+org-capture-link-file=:
   #+begin_src emacs-lisp
 (defvar +org-capture-links-file "links.org"
@@ -130,11 +136,7 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
   #+begin_src emacs-lisp
   (setq org-roam-graph-viewer "xdg-open")
   #+end_src
-- =org-note=
-  #+begin_src emacs-lisp
-  (setq org-noter-notes-search-path '("~/Documents/google-drive/org/notes/"))
-  #+end_src
-- =org-roam=
+Templates.
   #+begin_src emacs-lisp
 (setq org-roam-dailies-directory "daily/")
 (setq org-roam-dailies-capture-templates
@@ -151,6 +153,24 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
          :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
          :unnarrowed t)
         )
+      )
+  #+end_src
+- =org-note=
+  #+begin_src emacs-lisp
+  (setq org-noter-notes-search-path '("~/Documents/google-drive/org/notes/"))
+  #+end_src
+- Dan lainnya:
+  #+begin_src emacs-lisp
+(setq org-return-follows-link t ; RET akan mengarahkan ke link
+      org-confirm-babel-evaluate nil ; jangan lakukan konfirmasi untuk evaluasi babel
+      org-tag-alist '(
+                      ("@work" . ?w)
+                      ("@home" . ?h)
+                      ("@nix" . ?n)
+                      (:newline)
+                      ("Cancelled" . ?c)'
+                     )
+      org-refile-allow-creating-parent-nodes 'confirm
       )
   #+end_src
 ** =deft=
@@ -486,7 +506,9 @@ Untuk konfigurasi dari =msmtp=:
         send-mail-function #'smtpmail-send-it
         message-sendmail-f-is-evil t
         message-sendmail-extra-arguments '("--read-envelope-from")
-        message-send-mail-function #'message-send-mail-with-sendmail))
+        message-send-mail-function #'message-send-mail-with-sendmail)
+        mml-secure-openpgp-sign-with-sender t
+        mml-secure-openpgp-encrypt-to-self t)
 #+end_src
 
 Karena menggunakan /gnupg/, saya menambahkan /action/ baru untuk mempermudah proses /receiving gpg key/ dari dalam /email/. Diambil dari [[http://hugoduncan.org/post/snarf-pgp-keys-in-emacs-mu4e.html][sini]]:
