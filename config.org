@@ -134,6 +134,115 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
       "M-n" #'outline-next-visible-heading
       "M-p" #'outline-previous-visible-heading)
   #+end_src
+- Informasi yang di /record/ ketika /task/ dipindahkan ke /state DONE/:
+  #+begin_src emacs-lisp
+(setq org-log-done 'note ;- Informasi yang di record ketika task dipindahkan ke state DONE.
+      org-log-reschedule 'note ; sama, namun ketika tanggal schedule diubah
+      org-log-redeadline 'note ; sama, untuk ketika deadline diubah
+      org-log-note-clock-out t ; rekam stamp waktu ketika item di clock-out
+      org-log-refile 'note ; informasi yang direkam ketika task di refile
+      org-log-into-drawer t ; masukan note perubahan status dan time stamp kedalam drawer
+      org-treat-insert-todo-heading-as-state-change t ; perlakukan perubahan heading todo sebagai perubahan status
+      )
+  #+end_src
+- Kustomisasi tambahan untuk /org-capture-templates/.
+  #+begin_src emacs-lisp
+(after! org
+  (setq org-capture-templates
+        '(
+          ("t" "Personal todo" entry
+           (file+headline +org-capture-todo-file "Inbox")
+           "* [ ] TODO %?
+:PROPERTIES:
+:Via:
+:Note:
+:END:
+:LOGBOOK:
+- State \"TODO\"    from \"\"    %U
+:END:" :empty-lines 1)
+          ("n" "Personal notes" entry
+           (file+headline +org-capture-notes-file "Inbox")
+           "* %?
+:PROPERTIES:
+:Date: %U
+:Via: %:annotation
+:Note: %:note
+:END:
+%i
+" :prepend t)
+          ("j" "Journal" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %?
+:PROPERTIES:
+:Date: %U
+:Via: %:annotation
+:END:
+%i
+" :prepend t)
+          ("p" "Templates for projects")
+          ("pt" "Project-local todo" entry
+           (file+headline +org-capture-project-todo-file "Inbox")
+           "* TODO %?
+:PROPERTIES:
+:Date: %U
+:Via: %:annotation
+:Note: %:note
+:END:
+:LOGBOOK:
+- State \"TODO\"    from \"\"    %U
+:END:
+%i" :prepend t)
+          ("pn" "Project-local notes" entry
+           (file+headline +org-capture-project-notes-file "Inbox")
+           "* %?
+:PROPERTIES:
+:Date: %U
+:Via: %:annotation
+:Note: %:note
+:END:
+%i
+" :prepend t)
+          ("pc" "Project-local changelog" entry
+           (file+headline +org-capture-project-changelog-file "Unreleased")
+           "* %?
+:PROPERTIES:
+:Date: %U
+:Via: %:annotation
+:Note: %:note
+:END:
+%i
+" :prepend t)
+          ("o" "Centralized templates for projects")
+          ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?
+:PROPERTIES:
+:Date: %U
+:Via: %:annotation
+:Note: %:note
+:END:
+:LOGBOOK:
+- State \"TODO\"    from \"\"    %U
+:END:
+%i
+" :heading "Tasks" :prepend nil)
+          ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %?
+:PROPERTIES:
+:Date: %U
+:Via: %:annotation
+:Note: %:note
+:END:
+%i
+" :heading "Notes" :prepend t)
+          ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %?
+:PROPERTIES:
+:Date: %U
+:Via: %:annotation
+:Note: %:note
+:END:
+%i
+" :heading "Changelog" :prepend t))
+        ))
+  #+end_src
+  Tidak ada pengurangan dari /template default/, hanya penambahan /drawer/.
 - Tambah /variable/ =+org-capture-link-file=:
   #+begin_src emacs-lisp
 (defvar +org-capture-links-file "links.org"
