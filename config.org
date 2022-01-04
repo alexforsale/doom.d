@@ -92,8 +92,8 @@ Nilai /default/-nya 20, yang dilayar laptop dengan resolusi 1366x768 bagian bawa
 Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja ditaruh disini agar lebih mudah melakukan /trace/ jika ada yang salah. Karena /doom/ sendiri sebenarnya adalah konfigurasi untuk /emacs/, cukup rumit untuk melihat apa yang salah jika ada miskonfigurasi. Jadi sebaiknya lakukan perubahan satu persatu, gunakan /version control/ untuk mempermudah, seperti /git/. =doom sync= setiap perubahan, /restart emacs/ dan jika tidak ada yang salah, /commit/ perubahan tersebut.
 ** selectric mode
 #+BEGIN_SRC emacs-lisp
-(after! selectric-mode)
-(selectric-mode)
+;(after! selectric-mode)
+;(selectric-mode)
 #+END_SRC
 ** pywal
 #+BEGIN_SRC emacs-lisp
@@ -599,7 +599,7 @@ Dan gunakan =unpin= untuk melepaskan =:pin=
 *** selectric-mode
 /Sound effect/ mesin ketik.
 #+BEGIN_SRC emacs-lisp
-(package! selectric-mode)
+;(package! selectric-mode)
 #+END_SRC
 *** theme-magic
 /Package/ ini berfungsi untuk mengaplikasikan /theme/ /emacs/ ke seluruh /OS/ (saat ini baru untuk /linux/ dan /mac/).
