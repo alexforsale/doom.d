@@ -660,6 +660,9 @@ Menampilkan /tilde/ (~), untuk menandakan baris kosong seperti di vi/vim.
 Fitur /workspace/ didalam /emacs/. Tidak ada konfigurasi lanjutan.
 ** =zen=
 Fitur yang menjadi favorit saya saat ini. Dengan ~SPC t Z~, layar hanya akan berisi /window/ yang sedang kita buka.
+#+begin_src emacs-lisp
+(setq +zen-text-scale 0.8) ; set scaling font yang tidak terlalu besar
+#+end_src
 ** =evil=
 Fitur yang membuat semakin banyak orang menggunakan /emacs/. Dan juga (sayangnya) yang membuat semakin banyak orang yang berkata "/emacs/ itu sebenarnya klone dari vim..."
 ** =file-template=
