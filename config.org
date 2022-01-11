@@ -20,7 +20,7 @@ Seiring dengan berjalannya waktu, bertambah juga pengetahuan saya tentang /vim/ 
 Tapi tetap saya lebih condong ke /emacs/, karena satu hal: =org-mode=, simpelnya merupakan salah satu dari sekian banyak /plugin/ untuk /emacs/, [[https://en.wikipedia.org/wiki/Org-mode][/org-mode/]] awalnya dibuat sebagai /organizer/, /notes/ dan juga untuk /formatting/ berbagai /markup language/. File /readme/ ini, dibuat dengan /org-mode/, dan juga berfungsi sebagai /file/ konfigurasi untuk /doom emacs/!
 
 ** Doom Emacs
-[[https://github.com/hlissner/doom-emacs][/Doom Emacs/]], menurut saya, adalah jawaban untuk perang editor yang berkepanjangan diatas. Kompilasi dari banyak /module emacs/ yang sering digunakan, siap pakai tanpa perlu melakukan konfigurasi yang memakan waktu 2 bulan.
+[[https://github.com/hlissner/doom-emacs][/Doom Emacs/]], menurut saya, adalah jawaban untuk perang editor yang berkepanjangan diatas. Kompilasi dari banyak /module emacs/ yang sering digunakan, siap pakai tanpa perlu melakukan konfigurasi yang memakan waktu 2 bulan(walaupun sebenarnya bisa saja di/tweak/ habis - habisan).
 
 *** Konfigurasi doom emacs
 Begitu selesai melakukan instalasi /doom/, secara otomatis akan dibuat satu /directory/ untuk konfigurasi yang berada di salah satu dari:
