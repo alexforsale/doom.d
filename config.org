@@ -751,11 +751,6 @@ Karena menggunakan /gnupg/, saya menambahkan /action/ baru untuk mempermudah pro
 (add-hook! 'rainbow-mode-hook
   (hl-line-mode (if rainbow-mode -1 +1)))
 #+END_SRC
-** WAIT editorconfig
-#+begin_src emacs-lisp :tangle no
-(editorconfig-mode 1)
-#+end_src
-
 * Module =doom=
 Semua dokumentasi dan konfigurasi dari /module - module/ =doom= disimpan didalam /heading/ ini, untuk kemudahan /maintenance/. Untuk dokumentasi lebih dalam lagi umumnya tersedia /file/ =README.org= didalam /directory/ /modules/ dalam =~/.emacs.d=.
 ** =company=
