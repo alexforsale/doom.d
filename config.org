@@ -22,9 +22,28 @@ Seiring dengan berjalannya waktu, bertambah juga pengetahuan saya tentang /vim/ 
 Tapi tetap saya lebih condong ke /emacs/, karena satu hal: =org-mode=, simpelnya merupakan salah satu dari sekian banyak /plugin/ untuk /emacs/, [[https://en.wikipedia.org/wiki/Org-mode][/org-mode/]] awalnya dibuat sebagai /organizer/, /notes/ dan juga untuk /formatting/ berbagai /markup language/. File /readme/ ini, dibuat dengan /org-mode/, dan juga berfungsi sebagai /file/ konfigurasi untuk /doom emacs/!
 
 ** Doom Emacs
-[[https://github.com/hlissner/doom-emacs][/Doom Emacs/]], menurut saya, adalah jawaban untuk perang editor yang berkepanjangan diatas. Kompilasi dari banyak /module emacs/ yang sering digunakan, siap pakai tanpa perlu melakukan konfigurasi yang memakan waktu 2 bulan(walaupun sebenarnya bisa saja di/tweak/ habis - habisan).
+[[https://github.com/hlissner/doom-emacs][/Doom Emacs/]], menurut saya, adalah jawaban untuk perang editor yang berkepanjangan diatas. Kompilasi dari banyak /module emacs/ yang sering digunakan, siap pakai tanpa perlu melakukan konfigurasi yang memakan waktu 2 bulan(walaupun sebenarnya bisa saja di/tweak/ habis - habisan). Penjelasan /TL;DR/-nya: /doom emacs/ sebenarnya /emacs/ dengan /emacs/ yang didapat melalui /package manager/ dari /distro unix/ pada umumnya, bedanya hanya di /bundling/ khusus dengan konfigurasi /ala/ /[[https://github.com/emacs-tw/awesome-emacs#starter-kit][starter-kit]]/ untuk mempersingkat waktu, dan juga memberi kemudahan akses untuk para pengguna /emacs/ baru. Karena kebanyakan orang - orang tidak mau/mampu mengalokasikan waktu lebih hanya untuk menyesuaikan /editor/.
+Seperti /starter-kit/ lain, seringkali tidak semua /tools/ yang ada didalam kotak berguna bagi pemiliknya, jadi sebelum kita tersesat dalam hutan /elisp/ berkepanjangan tiada akhir, kita perlu mengetahui: apa yang kita butuhkan dari /doom emacs/?
 
-*** Konfigurasi doom emacs
+* Apa yang ingin didapat dari /doom/?
+** /Text Editor/
+Ini mestinya sudah jelas, jadi harus ada yang membedakan /emacs/ dengan editor lainnya. Perjalanan saya cukup panjang dari yang awalnya mengharapkan ada manusia baik hati yang bersedia /[[https://github.com/notepad-plus-plus/notepad-plus-plus/blob/master/SUPPORTED_SYSTEM.md][porting notepad++]]/ ke /linux/ -> mulai menyesuaikan dengan /nano/, penasaran mengapa disetiap /distro/ selalu ada /vi/, sampai sekarang yang sama sekali tidak ada minat menggunakan /editor/ lain. Fitur yang jelas sekali manfaatnya buat saya adalah /fleksibilitas/:
+- Tidak perlu ke /command line/ jika hanya ingin /mengedit/ satu /file/ di komputer lain([[https://www.emacswiki.org/emacs/TrampMode][tramp]]).
+- Tidak membutuhkan /terminal multiplexer/ seperti /screen/ atau /tmux/.
+- =org-mode=, /nuff said/.
+** /Email client/
+Ada 3 /module/ tersedia dalam /doom/ untuk /email client/, hanya /wanderlust/ yang belum pernah saya coba, kalau berdasarkan pengalaman saya mencoba dua lainnya, sepertinya tidak ada masalah.
+** Vterm
+Ini yang membedakan /emacs/ dengan /editor/ lainnya menurut saya, saya sudah jarang menggunakan /terminal emulator/ seperti /urxvt/, /xterm/ dan lainnya setelah mengetahui /vterm/.
+** Org-mode
+/Emacs/ adalah /editor/ yang sudah eksis lama sekali, namun begitu muncul /org-mode/, rasanya seperti orang gua yang minum /steroid/. Ini yang membuat /emacs/ menjadi /organizer/.
+* Konfigurasi?
+/Repo/ konfigurasi ini sudah saya gunakan lumayan lama, dan juga sudah mengalami beberapa kali perubahan drastis. Mudah - mudahan yang ini bertahan lama.
+Kesalahan yang (berulang kali) saya buat adalah kebanyakan /tweak/ yang sebenarnya tidak terlalu saya butuhkan, kebanyakan /keybinding/ yang harus dibiasakan. Tidak seperti konfigurasi /emacs/ yang dilakukan sendiri, /doom/ adalah sebuah komunitas yang terus menerus melakukan perkembangan, jadi seringnya saya melakukan modifikasi hanya karena penasaran ada /permen/ baru.
+** Dependency Doom
+Selain =emacs=, /doom/ juga membutuhkan =ripgrep= dan =fd-find= (terkadang dengan nama =fd=). =sh= membutuhkan =shellcheck=, =Org-roam= membutuhkan =graphviz=, untuk /email/ tentunya membutuhkan =mbsync= dan =mu=.
+
+** File konfigurasi
 Begitu selesai melakukan instalasi /doom/, secara otomatis akan dibuat satu /directory/ untuk konfigurasi yang berada di salah satu dari:
 - =~/.config/doom=, atau
 - =~/.doom.d=
@@ -32,21 +51,20 @@ Hanya satu dari kedua /directory/ tersebut yang diambil oleh /doom/, bisa disesu
 - init.el :: /file/ ini yang paling awal dievaluasi oleh /emacs/ ketika sesi /emacs/ dimulai; sebelum /file - file/ lainnya di /load/, umumnya selain blok kode ~doom!~, tidak diperlukan penambahan kode lainnya di /file/ ini.
 - config.el :: disini semua konfigurasi /doom/ dilakukan, karena saya [[file:init.el::literate][menggunakan fitur /literate/]] di /file/ =init.el=, /doom/ akan mengambil /file/ =config.org= untuk dijadikan sebagai /file/ konfigurasi, melakukan /parsing/ setiap blok kode /emacs-lisp/ yang ada di /file/ ini.
 - packages.el :: semua konfigurasi menyangkut manajemen /package/ dilakukan disini, juga dengan fitur /literate/, diatur didalam /file/ ini.
- 
-* Konfigurasi Dasar
+** Informasi dasar
 Konfigurasi yang di-/set/ di =~/.doom.d/config.el=, ketika kita melakukan /fresh install/ /doom/.
 
 Menggunakan /lexical binding/ agar /file/ ini berjalan lebih cepat (lengkapnya lihat di post blog [[https://nullprogram.com/blog/2016/12/22/][ini]]).
 #+BEGIN_SRC emacs-lisp :comments no
 ;;; config.el -*- lexical-binding: t; -*-
 #+END_SRC
-** Informasi Personal
+*** Personal
 Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
 #+BEGIN_SRC emacs-lisp
 (setq user-full-name "Kristian Alexander"
       user-mail-address "alexforsale@yahoo.com")
 #+END_SRC
-** Font
+*** Font
 #+BEGIN_SRC emacs-lisp
 (ignore-errors
   (setq doom-font (font-spec :family "Fantasque Sans Mono" :size 9)
@@ -54,83 +72,82 @@ Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
         doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 8)
         doom-serif-font (font-spec :family "Source Serif Pro" :weight 'light)))
 #+END_SRC
-** Theme
+*** Theme
 #+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-solarized-dark)
 #+END_SRC
-** Others
-*** vterm
-Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=. Karena /package/ ini bawaan dari /doom/, tidak perlu dilakukan penambahan di =package.el=.
-*** which-key
-Nilai /default/-nya 20, yang dilayar laptop dengan resolusi 1366x768 bagian bawahnya tidak muncul.
+** Konfigurasi default
+/Out of the box/, atau tanpa kita lakukan perubahan diawal, didalam /file/ =init.el= /module - module/ yang otomatis aktif:
+*** :completion
+[[file:~/.emacs.d/modules/completion/company/README.org::+TITLE: completion/company][company]] dan [[file:~/.emacs.d/modules/completion/vertico/README.org::+TITLE: completion/vertico][vertico]].
+**** [0/2] IDEA
+***** [ ] Defaultnya =company-backends= yang aktif hanya sedikit, kita perlu menambahkan sendiri /backend/ yang dibutuhkan:
+#+name: company-backend
 #+begin_src emacs-lisp
-(after! which-key
-  (setq which-key-frame-max-height 50))
+(after! sh-script
+  (set-company-backend! 'sh-mode
+    '(company-shell :with company-yasnippet)))
 #+end_src
-*** Pengaturan kosmetik lainnya
+***** [ ] Pelajari /binding default/ untuk /[[file:~/.emacs.d/modules/completion/company/README.org::*Code completion][company]]/ dan /[[file:~/.emacs.d/modules/completion/vertico/README.org::*Vertico keybindings][vertico]]/. Mayoritas dari /binding/ tersebut hanya tersedia dalam moda tertentu.
+*** :ui
+Kebanyakan /module/ disini hanya untuk penampilan. Tapi ada beberapa yang menarik:
+**** [[file:~/.emacs.d/modules/ui/deft/README.org::+TITLE: ui/deft][deft]]
+Tidak aktif secara /default/. Berguna untuk /filtering notes/ dalam bentuk /org-mode/, /markdown/, atau /LaTex/.
+***** DONE Kombinasikan dengan =org-roam=.
+CLOSED: [2022-01-12 Wed 03:54]
+:LOGBOOK:
+- CLOSING NOTE [2022-01-12 Wed 03:54] \\
+  already implemented
+:END:
+#+name: integrasikan dengan =org-roam=
 #+begin_src emacs-lisp
-(setq org-return-follows-link t ; RET akan mengarahkan ke link
-      org-confirm-babel-evaluate nil ; jangan lakukan konfirmasi untuk evaluasi babel
-      org-tag-alist '(
-                      ("@work" . ?w)
-                      ("@home" . ?h)
-                      ("@nix" . ?n)
-                      (:newline)
-                      ("Cancelled" . ?c)
-                      )
-      org-refile-allow-creating-parent-nodes 'confirm
-      evil-want-fine-undo t
-      undo-limit 80000000 ;80mb
-      truncate-string-ellipsis "…"
-      )
-(display-time-mode 1)
-(global-subword-mode 1) ; pisahkan huruf berdasarkan aturan CamelCase
-
-(setq evil-vsplit-window-right t
-      evil-split-window-below t)
+(setq deft-directory org-roam-directory
+      deft-recursive t)
 #+end_src
-
-* Kustomisasi Lanjutan
-Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja ditaruh disini agar lebih mudah melakukan /trace/ jika ada yang salah. Karena /doom/ sendiri sebenarnya adalah konfigurasi untuk /emacs/, cukup rumit untuk melihat apa yang salah jika ada miskonfigurasi. Jadi sebaiknya lakukan perubahan satu persatu, gunakan /version control/ untuk mempermudah, seperti /git/. =doom sync= setiap perubahan, /restart emacs/ dan jika tidak ada yang salah, /commit/ perubahan tersebut.
-** selectric mode
-#+BEGIN_SRC emacs-lisp
-;(after! selectric-mode)
-;(selectric-mode)
-#+END_SRC
-** pywal
-#+BEGIN_SRC emacs-lisp
-;(add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
-#+END_SRC
-** ox-hugo
-/Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog. /Codeblock/ dibawah ini saja sebenarnya hanyalah penambahan /function/ yang nantinya dipanggil didalam =org-capture-templates=.
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'org-capture
-  (defun org-hugo-new-subtree-post-capture-template ()
-    "Returns `org-capture' template string for new Hugo post.
-See `org-capture-templates' for more information."
-    (let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
-           (date (format-time-string (org-time-stamp-format :long :inactive) (org-current-time)))
-           (title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
-           (fname (org-hugo-slug title)))
-      (mapconcat #'identity
-                 `(
-                   ,(concat "* TODO " title)
-                   ":PROPERTIES:"
-                   ,(concat ":EXPORT_FILE_NAME: " fname)
-                   ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
-                   ":END:"
-                   "%?\n")                ;Place the cursor here finally
-                 "\n"))))
-#+END_SRC
-
-*** Alur Workflow dari ox-hugo
-Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=, akan ada satu pilihan /template/ =[h]= untuk /Hugo/ (yang konfigurasinya dibuat [[*org-capture-templates][disini]]). Didalammnya ada tambahan pilihan untuk entri /New Project/ atau /New blogpost/, jika dipilih, keduanya akan melakukan penambahan /heading/ di file =~/Projects/personal/blog/index.org=, disini lokasi dari /blog/ saya. Bedanya pilihan /New Project/ akan membuat /heading/ baru dibawah /heading/ =Projects= yang sudah ada didalam file =index.org=, sebaliknya juga, pilihan /New blogpost/ akan membuat heading baru dibawah /heading/ =Post=.
-** org-mode
+**** [[file:~/.emacs.d/modules/ui/workspaces/README.org::+TITLE: ui/workspaces][workspace]]
+=SPC-TAB [= dan =SPC TAB ]= untuk berpindah /workspaces/. Aktif /Default/.
+**** [[file:~/.emacs.d/modules/ui/zen/README.org::+TITLE: ui/zen][zen]]
+Membantu fokus dalam pengetikan.
+*** :editor
+**** [[file:~/.emacs.d/modules/editor/evil/README.org::+TITLE: editor/evil][evil]] (dengan tambahan plugin +everywhere)
+Aktif secara /default/. Mungkin salah satu alasan terbesar orang - orang menggunakan /doom/.
+**** [[file:~/.emacs.d/modules/editor/file-templates/README.org::+TITLE: editor/file-templates][file-templates]]
+Semacam /snippet/ untuk mengisi /template/ di /file/ baru, umumnya lisensi /open source software/. Aktif /default/.
+**** [[file:~/.emacs.d/modules/editor/fold/README.org::+TITLE: editor/fold][fold]]
+/function/ untuk /melipat/ teks, umumnya untuk /code/, bekerja secara otomatis biasanya berdasarkan indentasi, atau seperti dalam /lisp/, berdasarkan karakter /()/.
+**** [[file:~/.emacs.d/modules/editor/snippets/README.org::+TITLE: editor/snippets][snippet]]
+Sebenarnya /yasnippet/ dengan /snippet/ dari /doom/.
+*** :emacs
+**** [[file:~/.emacs.d/modules/emacs/dired/README.org::+TITLE: emacs/dired][dired]]
+Kalau tidak dari /directory editor/, yang merupakan module bawaan /emacs/. /Plugin/ =+ranger= membuat tampilan menjadi seperti /terminal file manager/ dengan nama yang sama.
+**** [[file:~/.emacs.d/modules/emacs/undo/README.org::+TITLE: emacs/undo][undo]]
+/Defaultnya/ menggunakan /undo-fu/.
+**** [[file:~/.emacs.d/modules/emacs/vc/README.org::+TITLE: emacs/vc][vc]]
+/Module/ bawaan /emacs/ yang diberi bumbu tambahan untuk integrasi dengan /git/.
+*** :checker
+**** [[file:~/.emacs.d/modules/checkers/syntax/README.org::+TITLE: checkers/syntax][syntax]]
+/Flycheck/, yang membutuhkan /linter/ tambahan agar bisa operasional.
+*** :tools
+**** [[file:~/.emacs.d/modules/tools/eval/README.org::+TITLE: tools/eval][eval]], dengan tambahan plugin =+overlays=
+/Inline code evaluation/, tanpa =+overlays= /result/ akan muncul di /minibuffer/.
+**** [[file:~/.emacs.d/modules/tools/lookup/README.org::+TITLE: tools/lookup][lookup]]
+/Code navigation/
+- =+dictionary= :: menambahkan fitur /thesaururs/.
+- =+offline= :: mengurangi beban internet, /download/ kamus sebisa mungkin.
+- =docset= :: integrasi dengan =Dash.app=
+Membutuhkan /package/ tambahan: =ripgrep=, =sqlite=, dan =wordnet-cli=.
+**** [[file:~/.emacs.d/modules/tools/magit/README.org::+TITLE: tools/magit][magit]]
+Salah satu senjata utama /emacs/. /Interface/ untuk /git/, tersedia /plugins/ =+forge=.
+*** :lang
+Mayoritas pengguna /doom/ dan /emacs/ pada umumnya akan lebih banyak meluangkan waktu untuk konfigurasi /module - module/ disini. Karena secara /default/ hanya =org-mode=, =markdown=, =sh=, dan =emacs-lis= (tentunya) yang aktif.
+*** TODO :email
+Saya sepertinya sudah nyaman dengan konfigurasi =mu= dan =mbsync=, namun keputusan akhir tetap berada ditangan /provider/ email...
+*** org-mode
 - /Set/ ~org-directory~:
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/google-drive/org")
 #+end_src
-- /Map/ =Alt-n= dan =Alt-p= untuk navigasi heading
+- /Map/ =Alt-n= dan =Alt-p= untuk navigasi heading, di /default/-nya kedua /function/ ini di-/bind/ di =C-c C-n= dan =C-c C-p=.
   #+begin_src emacs-lisp
 (map! :map org-mode-map
       "M-n" #'outline-next-visible-heading
@@ -298,6 +315,77 @@ Templates.
   #+begin_src emacs-lisp
   (setq org-noter-notes-search-path '("~/Documents/google-drive/org/notes/"))
   #+end_src
+*** :term
+**** vterm
+Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=. Karena /package/ ini bawaan dari /doom/, tidak perlu dilakukan penambahan di =package.el=.
+*** TODO :app
+/Module/ =calendar= dan =everywhere= sepertinya cukup menarik.
+*** Lainnya
+
+**** WAIT which-key
+Nilai /default/-nya 20, yang dilayar laptop dengan resolusi 1366x768 bagian bawahnya tidak muncul.
+#+begin_src emacs-lisp :tangle no
+(after! which-key
+  (setq which-key-frame-max-height 50))
+#+end_src
+**** Pengaturan kosmetik lainnya
+#+begin_src emacs-lisp :tangle no
+(setq org-return-follows-link t ; RET akan mengarahkan ke link
+      org-confirm-babel-evaluate nil ; jangan lakukan konfirmasi untuk evaluasi babel
+      org-tag-alist '(
+                      ("@work" . ?w)
+                      ("@home" . ?h)
+                      ("@nix" . ?n)
+                      (:newline)
+                      ("Cancelled" . ?c)
+                      )
+      org-refile-allow-creating-parent-nodes 'confirm
+      evil-want-fine-undo t
+      undo-limit 80000000 ;80mb
+      truncate-string-ellipsis "…"
+      )
+(display-time-mode 1)
+(global-subword-mode 1) ; pisahkan huruf berdasarkan aturan CamelCase
+
+(setq evil-vsplit-window-right t
+      evil-split-window-below t)
+#+end_src
+
+*** Kustomisasi Lanjutan
+Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja ditaruh disini agar lebih mudah melakukan /trace/ jika ada yang salah. Karena /doom/ sendiri sebenarnya adalah konfigurasi untuk /emacs/, cukup rumit untuk melihat apa yang salah jika ada miskonfigurasi. Jadi sebaiknya lakukan perubahan satu persatu, gunakan /version control/ untuk mempermudah, seperti /git/. =doom sync= setiap perubahan, /restart emacs/ dan jika tidak ada yang salah, /commit/ perubahan tersebut.
+*** selectric mode
+#+BEGIN_SRC emacs-lisp :tangle no
+(after! selectric-mode)
+(selectric-mode)
+#+END_SRC
+*** pywal
+#+BEGIN_SRC emacs-lisp :tangle no
+(add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
+#+END_SRC
+*** ox-hugo
+/Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog. /Codeblock/ dibawah ini saja sebenarnya hanyalah penambahan /function/ yang nantinya dipanggil didalam =org-capture-templates=.
+#+BEGIN_SRC emacs-lisp :tangle no
+(with-eval-after-load 'org-capture
+  (defun org-hugo-new-subtree-post-capture-template ()
+    "Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information."
+    (let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+           (date (format-time-string (org-time-stamp-format :long :inactive) (org-current-time)))
+           (title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+           (fname (org-hugo-slug title)))
+      (mapconcat #'identity
+                 `(
+                   ,(concat "* TODO " title)
+                   ":PROPERTIES:"
+                   ,(concat ":EXPORT_FILE_NAME: " fname)
+                   ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
+                   ":END:"
+                   "%?\n")                ;Place the cursor here finally
+                 "\n"))))
+#+END_SRC
+
+**** Alur Workflow dari ox-hugo
+Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=, akan ada satu pilihan /template/ =[h]= untuk /Hugo/ (yang konfigurasinya dibuat [[*org-capture-templates][disini]]). Didalammnya ada tambahan pilihan untuk entri /New Project/ atau /New blogpost/, jika dipilih, keduanya akan melakukan penambahan /heading/ di file =~/Projects/personal/blog/index.org=, disini lokasi dari /blog/ saya. Bedanya pilihan /New Project/ akan membuat /heading/ baru dibawah /heading/ =Projects= yang sudah ada didalam file =index.org=, sebaliknya juga, pilihan /New blogpost/ akan membuat heading baru dibawah /heading/ =Post=.
 ** =deft=
 #+begin_src emacs-lisp
 (setq deft-directory org-roam-directory
@@ -309,7 +397,7 @@ Menggunakan /default/ =elfeed=. Berikut konfigurasi agar /search filter/ mencari
 (after! elfeed
   (setq elfeed-search-filter "@1-month-ago +unread"))
 #+end_src
-/Doom-emacs/ otomatis memakai =org-mode= untuk konfigurasi /feed rss/, dan lokasi /default/-nya di =~org-directory/elfeed.org=.
+/Doom-emacs/ otomatis memakai =org-mode= untuk konfigurasi /feed rss/, dan lokasi /default/-nya di =org-directory/elfeed.org=.
 ** Email
 *** =mu4e= + =isync=
 **** Konfigurasi System
@@ -682,6 +770,10 @@ Integrasi ke banyak perintah /emacs/, dan juga /unified interface/ untuk pencari
 - /freebsd/
   #+begin_src shell :tangle no
   sudo pkg install -y ripgrep
+  #+end_src
+- /guix/
+  #+begin_src shell :tangle no
+  guix install ripgrep
   #+end_src
 ** =doom=
 Konfigurasi /doom-emacs/, yang saya ubah disini hanyalah /themes/ dan /fonts/, sudah dikonfigurasi di[[*Konfigurasi Dasar][sini]].
