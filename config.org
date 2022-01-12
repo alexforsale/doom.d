@@ -319,7 +319,7 @@ Menggunakan /default/ =elfeed=. Berikut konfigurasi agar /search filter/ mencari
 yay -S isync mu msmtp
 #+end_src
 - =mbsyncrc=
-  Saya menggunakan 4 /email/ yang disimpan didalam ~/var/mail/alexforsale<nama akun>~
+  Saya menggunakan 4 /email/ yang disimpan didalam ~/var/mail/alexforsale<nama akun>~, namun ini bisa dimana saja selama /user/ yang digunakan dapat mengaksesnya.
   #+begin_example
 IMAPAccount gmail
 # Address to connect to
@@ -568,7 +568,7 @@ mu index
 **** Konfigurasi /emacs/
 Konfigurasi untuk /mu4e/ berkaitan dengan konfigurasi di =~/.mbsyncrc=.
 /Set/ =mbsync= sebagai /backend/, ini merupakan defaultnya jadi tidak perlu diset secara eksplisit didalam konfigurasi /emacs/.
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
 (setq +mu4e-backend 'mbsync)
 #+end_src
 
