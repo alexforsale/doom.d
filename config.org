@@ -144,6 +144,7 @@ Mayoritas pengguna /doom/ dan /emacs/ pada umumnya akan lebih banyak meluangkan 
 *** TODO :email
 Saya sepertinya sudah nyaman dengan konfigurasi =mu= dan =mbsync=, namun keputusan akhir tetap berada ditangan /provider/ email...
 *** org-mode
+Dengan cakupan /org-mode/ yang sangat luas, perlu satu /heading/ tersendiri untuk /org-mode/ dan keluarganya.
 - /Set/ ~org-directory~:
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/google-drive/org")
@@ -293,25 +294,50 @@ Saya sepertinya sudah nyaman dengan konfigurasi =mu= dan =mbsync=, namun keputus
   #+begin_src emacs-lisp
   (setq org-roam-graph-viewer "xdg-open")
   #+end_src
-Templates.
-  #+begin_src emacs-lisp
-(setq org-roam-dailies-directory "daily/")
-(setq org-roam-dailies-capture-templates
-      '(("d" "default" entry
-         "* %?"
-         :target (file+head "%<%Y-%m-%d>.org"
-                            "#+title: %<%Y-%m-%d>\n"))))
-(setq org-roam-capture-templates
-      '(("d" "default" plain
-         "%?"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-         :unnarrowed t)
-        ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
-         :unnarrowed t)
+  - Templates.
+    #+begin_src emacs-lisp
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n"))))
+  (setq org-roam-capture-templates
+        '(("d" "default" plain
+           "%?"
+           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+           :unnarrowed t)
+          )
         )
-      )
-  #+end_src
+    #+end_src
+
+  - Asosiasikan /org-protocol/ dengan /desktop entry/ tersendiri
+    #+begin_src conf :tangle ~/.local/share/applications/org-protocol.desktop
+[Desktop Entry]
+Name=Org-Protocol
+Exec=emacsclient %u
+Icon=emacs-icon
+Type=Application
+Terminal=false
+MimeType=x-scheme-handler/org-protocol
+    #+end_src
+
+    Jalankan /keybind/ ~C-c C-v t~ didalam /code block dibawah ini/ untuk mengevaluasi, hanya perlu dilakukan sekali.
+    #+begin_src sh :tangle no
+xdg-mime default org-protocol.desktop x-scheme-handler/org-protocol
+    #+end_src
+    Untuk memastikan, perintah ini:
+    #+begin_src sh
+xdg-mime query default x-scheme-handler/org-protocol
+    #+end_src
+
+    jika dijalankan diterminal mestinya hasilnya seperti ini
+    #+RESULTS:
+    : org-protocol.desktop
+
 - =org-note=
   #+begin_src emacs-lisp
   (setq org-noter-notes-search-path '("~/Documents/google-drive/org/notes/"))
