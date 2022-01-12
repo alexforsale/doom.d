@@ -104,6 +104,7 @@ CLOSED: [2022-01-12 Wed 03:54]
 (setq deft-directory org-roam-directory
       deft-recursive t)
 #+end_src
+/key binding/ di =SPC n d=.
 **** [[file:~/.emacs.d/modules/ui/workspaces/README.org::+TITLE: ui/workspaces][workspace]]
 =SPC-TAB [= dan =SPC TAB ]= untuk berpindah /workspaces/. Aktif /Default/.
 **** [[file:~/.emacs.d/modules/ui/zen/README.org::+TITLE: ui/zen][zen]]
