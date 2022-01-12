@@ -663,76 +663,11 @@ Karena menggunakan /gnupg/, saya menambahkan /action/ baru untuk mempermudah pro
 (add-hook! 'rainbow-mode-hook
   (hl-line-mode (if rainbow-mode -1 +1)))
 #+END_SRC
-** editorconfig
-#+begin_src emacs-lisp
+** WAIT editorconfig
+#+begin_src emacs-lisp :tangle no
 (editorconfig-mode 1)
 #+end_src
 
-* Packages
-:PROPERTIES:
-:header-args: emacs-lisp :tangle "packages.el" :comment link
-:END:
-Semua /code blocks/ yang berada dibawah /header ini akan masuk kedalam /file/ =packages.el=, yang /default/-nya hanya berisi komentar saja.
-Instalasi /package/ di /doom/ dimulai dengan memasukkan nama /file/ nya kedalam file =packages.el= dan setelahnya melakukan perintah =doom sync= di /command line/, dan /restart/ sesi /emacs/.
-Instalai /package/ dari /repo/ /MELPA/, /ELPA/, atau /emacsmirror/:
-#+BEGIN_EXAMPLE
-(package! namapackage)
-#+END_EXAMPLE
-Instalasi /package/ langsung dari /repo remote/ /git/, kita perlu mencantumkan =:recipe=. Dokumentasi lengkapnya di [https://github.com/raxod502/straight.el#the-recipe-format]:
-#+BEGIN_EXAMPLE
-(package! namapackage
-  :recipe (:host github :repo "username/repo"))
-#+END_EXAMPLE
-Untuk menonaktifkan /package/ bawaan dari /doom/, bisa dengan tambahan /property/ =:disable=:
-#+BEGIN_EXAMPLE
-(package! namapackagebuiltin :disable t)
-#+END_EXAMPLE
-Kita bisa /override/ /package/ bawaan dari /doom/ tanpa harus menyantumkan semua /property/ untuk =:recipe=. Semua /property/ lainnya akan dibawa dari /doom/ atau MELPA/ELPA/Emacsmirror:
-#+BEGIN_EXAMPLE
-(package! namapackagebuiltin :recipe (:nonrecursive t))
-(package! namapackagebuiltin2 :recipe (:repo "namafork/package"))
-#+END_EXAMPLE
-Gunakan =:branch= untuk instalasi /package/ dari /branch/ tertentu atau /tag/ tertentu. Ini diperlukan untuk /package/ yang /branch default/ nya bukan =master=.
-#+BEGIN_EXAMPLE
-(package! namapackagebuiltin :recipe (:branch "develop"))
-#+END_EXAMPLE
-Gunakan =:pin= untuk menentukan /commit/ tertentu.
-#+BEGIN_EXAMPLE
-(package! namapackagebuiltin :pin "1a2b3c4d5e")
-#+END_EXAMPLE
-Dan gunakan =unpin= untuk melepaskan =:pin=
-#+BEGIN_EXAMPLE
-(unpin! namapackage)
-(unpin! namapackage namapackage2)
-#+END_EXAMPLE
-
-** Fun
-*** selectric-mode
-/Sound effect/ mesin ketik.
-#+BEGIN_SRC emacs-lisp
-;(package! selectric-mode)
-#+END_SRC
-*** theme-magic
-/Package/ ini berfungsi untuk mengaplikasikan /theme/ /emacs/ ke seluruh /OS/ (saat ini baru untuk /linux/ dan /mac/).
-/Dependency/:
-- /package/ /python/ =pywal=.
-  Dan /pywal/ juga memiliki /dependencies/:
-  - /linux/, /bsd/ atau /mac/ /OS.
-  - /python/ (tentunya).
-  - /imagemagick/.
-  - /pidof/
-  - aplikasi /wallpaper/, (bisa bawaan dari /desktop environment/ seperti /mate/, /gnome/, /xfce/, dll atau universal seperti /feh/ atau /nitrogen/).
-#+BEGIN_SRC emacs-lisp
-;(package! theme-magic)
-#+END_SRC
-**** Set Wallpaper
-Agar /setup/ ini bisa berjalan otomatis, untuk penggunaan pertama kali kita perlu merubah /wallpaper/ secara manual menggunakan perintah =wal -i /path/ke/gambar.png= sebelum dapat melakukan /exporting theme/ dari /emacs/. Dan setelahnya /wallpaper/ tersebut akan tersimpan didalam /cache/ /pywal/, perubahan theme bisa dilakukan dengan perintah =M-x theme-magic-from-emacs=.
-**** Restoring Theme
-/Pywal/ hanya berlaku untuk sesi yang berjalan saat itu saja. Jika ingin /themes/ bertahan setiap /reboot/, jalankan perintah =wal -R= di /shell/. Proses ini dapat di otomatisasi dengan menggunakan /script/ atau /startup config/ dari /shell/ yang bersangkutan, atau melalui /file/ =~/.xprofile=.
-Dan jika menggunakan /setup/ seperti [[*theme-magic][ini]], perubahan /theme/ didalam /emacs/ akan otomatis merubah semua tampilan di /os/.
-Cek dokumentasi lengkap di [[https://github.com/dylanaraps/pywal][repo]] untuk detail mengenai kustomisasi ke berbagai aplikasi, /window-manager/, dan lainnya.
-*** editorconfig
-(package! editorconfig)
 * Module =doom=
 Semua dokumentasi dan konfigurasi dari /module - module/ =doom= disimpan didalam /heading/ ini, untuk kemudahan /maintenance/. Untuk dokumentasi lebih dalam lagi umumnya tersedia /file/ =README.org= didalam /directory/ /modules/ dalam =~/.emacs.d=.
 ** =company=
