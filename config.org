@@ -1,6 +1,8 @@
 #+title: Konfigurasi Doom emacs
 #+author: Kristian Alexander P
 #+email: alexforsale@yahoo.com
+#+startup: content
+#+property: header-args :tangle yes
 
 * Intro
 Bukan untuk dijadikan acuan atau basis /tutorial/, hanya mengupas sedikit dari:
