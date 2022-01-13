@@ -109,6 +109,10 @@ CLOSED: [2022-01-12 Wed 03:54]
 =SPC-TAB [= dan =SPC TAB ]= untuk berpindah /workspaces/. Aktif /Default/.
 **** [[file:~/.emacs.d/modules/ui/zen/README.org::+TITLE: ui/zen][zen]]
 Membantu fokus dalam pengetikan.
+#+begin_src emacs-lisp
+(setq +zen-text-scale 0.8) ; set scaling font yang tidak terlalu besar
+#+end_src
+
 *** :editor
 **** [[file:~/.emacs.d/modules/editor/evil/README.org::+TITLE: editor/evil][evil]] (dengan tambahan plugin +everywhere)
 Aktif secara /default/. Mungkin salah satu alasan terbesar orang - orang menggunakan /doom/.
@@ -819,11 +823,6 @@ Menampilkan /tilde/ (~), untuk menandakan baris kosong seperti di vi/vim.
 /Module/ yang mempermudah dalam memilih /window/ tanpa menggunakan /mouse/. Saya menggunakan /flags/ =+switch-window= karena ketika kita dalam proses /switch/, konten dari setiap /window/ menjadi gelap, hanya ada karakter yang terlihat.
 ** =workspaces=
 Fitur /workspace/ didalam /emacs/. Tidak ada konfigurasi lanjutan.
-** =zen=
-Fitur yang menjadi favorit saya saat ini. Dengan ~SPC t Z~, layar hanya akan berisi /window/ yang sedang kita buka.
-#+begin_src emacs-lisp
-(setq +zen-text-scale 0.8) ; set scaling font yang tidak terlalu besar
-#+end_src
 ** =evil=
 Fitur yang membuat semakin banyak orang menggunakan /emacs/. Dan juga (sayangnya) yang membuat semakin banyak orang yang berkata "/emacs/ itu sebenarnya klone dari vim..."
 ** =file-template=
