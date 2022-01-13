@@ -390,16 +390,16 @@ Nilai /default/-nya 20, yang dilayar laptop dengan resolusi 1366x768 bagian bawa
 
 *** Kustomisasi Lanjutan
 Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja ditaruh disini agar lebih mudah melakukan /trace/ jika ada yang salah. Karena /doom/ sendiri sebenarnya adalah konfigurasi untuk /emacs/, cukup rumit untuk melihat apa yang salah jika ada miskonfigurasi. Jadi sebaiknya lakukan perubahan satu persatu, gunakan /version control/ untuk mempermudah, seperti /git/. =doom sync= setiap perubahan, /restart emacs/ dan jika tidak ada yang salah, /commit/ perubahan tersebut.
-*** selectric mode
+**** selectric mode
 #+BEGIN_SRC emacs-lisp :tangle no
 (after! selectric-mode)
 (selectric-mode)
 #+END_SRC
-*** pywal
+**** pywal
 #+BEGIN_SRC emacs-lisp :tangle no
 (add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
 #+END_SRC
-*** ox-hugo
+**** ox-hugo
 /Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog. /Codeblock/ dibawah ini saja sebenarnya hanyalah penambahan /function/ yang nantinya dipanggil didalam =org-capture-templates=.
 #+BEGIN_SRC emacs-lisp :tangle no
 (with-eval-after-load 'org-capture
@@ -421,19 +421,19 @@ See `org-capture-templates' for more information."
                  "\n"))))
 #+END_SRC
 
-**** Alur Workflow dari ox-hugo
+***** Alur Workflow dari ox-hugo
 Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=, akan ada satu pilihan /template/ =[h]= untuk /Hugo/ (yang konfigurasinya dibuat [[*org-capture-templates][disini]]). Didalammnya ada tambahan pilihan untuk entri /New Project/ atau /New blogpost/, jika dipilih, keduanya akan melakukan penambahan /heading/ di file =~/Projects/personal/blog/index.org=, disini lokasi dari /blog/ saya. Bedanya pilihan /New Project/ akan membuat /heading/ baru dibawah /heading/ =Projects= yang sudah ada didalam file =index.org=, sebaliknya juga, pilihan /New blogpost/ akan membuat heading baru dibawah /heading/ =Post=.
-** RSS
+*** RSS
 Menggunakan /default/ =elfeed=. Berikut konfigurasi agar /search filter/ mencari /feed/ sejauh 1 bulan kebelakang:
 #+begin_src emacs-lisp
 (after! elfeed
   (setq elfeed-search-filter "@1-month-ago +unread"))
 #+end_src
 /Doom-emacs/ otomatis memakai =org-mode= untuk konfigurasi /feed rss/, dan lokasi /default/-nya di =org-directory/elfeed.org=.
-** Email
-*** =mu4e= + =isync=
-**** Konfigurasi System
-***** archlinux
+*** Email
+**** =mu4e= + =isync=
+***** Konfigurasi System
+****** archlinux
 - Instalasi Aplikasi
 #+begin_src shell :tangle no
 yay -S isync mu msmtp
@@ -671,7 +671,7 @@ passwordeval   "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.local/sha
 # Set a default account
 account default : yahoo
   #+end_example
-**** /workflow/
+***** /workflow/
 - Setiap /email/ yang telah dikonfigurasi didalam =~/.mbsyncrc= perlu di/pull/ secara manual terlebih dahulu dengan perintah:
 #+begin_src shell :tangle no
 mbsync -a
@@ -685,7 +685,7 @@ mu init --maildir /var/mail/alexforsale --my-address alexforsale@yahoo.com \
     --my-address christian.alexander@windowslive.com
 mu index
   #+end_src
-**** Konfigurasi /emacs/
+***** Konfigurasi /emacs/
 Konfigurasi untuk /mu4e/ berkaitan dengan konfigurasi di =~/.mbsyncrc=.
 /Set/ =mbsync= sebagai /backend/, ini merupakan defaultnya jadi tidak perlu diset secara eksplisit didalam konfigurasi /emacs/.
 #+begin_src emacs-lisp
@@ -778,88 +778,8 @@ Karena menggunakan /gnupg/, saya menambahkan /action/ baru untuk mempermudah pro
   (add-to-list 'mu4e-view-actions
                '("Snarf PGP keys" . mu4e-view-snarf-pgp-key) t))
 #+end_src
-** rgb
+*** rgb
 #+BEGIN_SRC emacs-lisp
 (add-hook! 'rainbow-mode-hook
   (hl-line-mode (if rainbow-mode -1 +1)))
 #+END_SRC
-* Module =doom=
-Semua dokumentasi dan konfigurasi dari /module - module/ =doom= disimpan didalam /heading/ ini, untuk kemudahan /maintenance/. Untuk dokumentasi lebih dalam lagi umumnya tersedia /file/ =README.org= didalam /directory/ /modules/ dalam =~/.emacs.d=.
-** =company=
-Fungsi utamanya adalah sebagai /code completion/. Saya menggunakan /flags/ =+tng= yang memungkinkan /completion/ menggunakan ~TAB~. Saya tidak menggunakan konfigurasi lanjutan untuk /module/ ini.
-** =ivy +fuzzy=
-Integrasi ke banyak perintah /emacs/, dan juga /unified interface/ untuk pencarian /project/ dan /replace/, jika menggunakan =ripgrep=.
-*** Dependency
-- /archlinux/
-  #+begin_src shell :tangle no
-  sudo pacman -S --noconfirm --needed ripgrep
-  #+end_src
-- /freebsd/
-  #+begin_src shell :tangle no
-  sudo pkg install -y ripgrep
-  #+end_src
-- /guix/
-  #+begin_src shell :tangle no
-  guix install ripgrep
-  #+end_src
-** =doom=
-Konfigurasi /doom-emacs/, yang saya ubah disini hanyalah /themes/ dan /fonts/, sudah dikonfigurasi di[[*Konfigurasi Dasar][sini]].
-** =doom-dashboard=
-/Dashboard/ awal ketika memulai /doom-emacs/. Tidak ada konfigurasi lanjutan
-** =hl-todo=
-/Syntax highlighting/ untuk /tag/ TODO/FIXME/NOTE dalam beberapa /major-modes/ bahasa /programming/.
-** =modeline=
-/Modeline/ minimalistik ala /doom/. /Eval/ /codeblock/ dibawah ini jika bagian kanan dari /modeline/ tampak terpotong (/default/-nya adalan 1.2).
-#+begin_src emacs-lisp :tangle no
-(setq all-the-icons-scale-factor 1.1)
-#+end_src
-** =ophints=
-/Operation hinting/. Tidak ada konfigurasi lanjutan.
-** =vc-gutter=
-Tidak ada konfigurasi lanjutan.
-** =vi-tilde-fringe=
-Menampilkan /tilde/ (~), untuk menandakan baris kosong seperti di vi/vim.
-** =window-select=
-/Module/ yang mempermudah dalam memilih /window/ tanpa menggunakan /mouse/. Saya menggunakan /flags/ =+switch-window= karena ketika kita dalam proses /switch/, konten dari setiap /window/ menjadi gelap, hanya ada karakter yang terlihat.
-** =workspaces=
-Fitur /workspace/ didalam /emacs/. Tidak ada konfigurasi lanjutan.
-** =evil=
-Fitur yang membuat semakin banyak orang menggunakan /emacs/. Dan juga (sayangnya) yang membuat semakin banyak orang yang berkata "/emacs/ itu sebenarnya klone dari vim..."
-** =file-template=
-Fitur /file templating/ yang menggunakan /yasnippet/. Saya masih belum memerlukan fitur ini, jadi tidak ada konfigurasi lanjutan.
-** =fold=
-Fitur simpel, /code folding/, seperti didalam =org-mode=, namun bisa dilakukan hampir di semua /minor mode/.
-** =format=
-Fitur /code formatter/, umumnya untuk bahasa pemrograman. Dependensi yang diperlukan tergantung dari bahasa pemrograman yang digunakan.
-** =multiple-cursors=
-Edit beberapa baris atau kalimat secara bersamaan, dalam =evil-mode= biasanya dengan prefix =g z=.
-** =snippet=
-Didalam /module/ ini fitur dari /yasnippet/ digunakan sepenuhnya. Didalam =evil mode= /snippet/ dapat diakses dengan =SPC i s=.
-** =word-wrap=
-Fitur /word wrapping/ dengan konfigurasi tambahan, /default/-nya tidak di /enabled/ secara global.
-** =dired=
-Konfigurasi tambahan untuk /module dired/ yang merupakan /module/ standar dalam /emacs/. Jika menggunakan /FreeBSD/ memerlukan /package/ =coreutils= yang menyediakan /program/ ~gls~ (implementasi ~ls~ dari /gnu/).
-** =electric=
-Juga merupakan /module/ bawaan dari /emacs/.
-** =undo=
-Juga merupakan /module/ bawaan dari /emacs/, namun dengan tambahan /module/.
-** =vc=
-/Module/ bawaan dari /emacs/.
-** =vterm=
-Sudah dikover di[[*Others][sini]].
-** =syntax=
-/Module flycheck/ dengan kustomisasi /ala/ /doom/.
-** =ansible=
-Memerlukan tambahan /package/ =ansible=, umumnya tersedia di hampir semua /distro/.
-** =editorconfig=
-Butuh /package/ =editorconfig=.
-** =eval=
-/Dependency/-nya tergantung dari bahasa pemograman yang digunakan.
-** =lookup=
-Koleksi dari beberapa /package emacs/ dengan fitur /code navigation/ dan /documentation lookup/. Memiliki =dependencies=: =ripgrep=, =wordnet=, dan =sqlite3=.
-** =lsp=
-Integrasi /language servers/ kedalam /emacs/. /Dependency/-nya sangat tergantung dari /languague/ yang dipilih.
-** =magit=
-/Git/ dalam /emacs/. Tentunya membutuhkan /package/ =git=.
-** =pass=
-Integrasi /password-store/ dalam /emacs/. Di =archlinux= dan beberapa distro lainnya nama /package/-nya =pass=, untuk /FreeBSD/ dengan naman /package/ =password-store=.
