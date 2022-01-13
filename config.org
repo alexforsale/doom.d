@@ -350,6 +350,17 @@ xdg-mime query default x-scheme-handler/org-protocol
 - pengaturan /org-mode/ lainnya
   #+begin_src emacs-lisp
 (setq org-use-property-inheritance t ;; warisi property dari header level sebelumnya
+      org-return-follows-link t ; RET akan mengarahkan ke link
+      org-confirm-babel-evaluate nil ; jangan lakukan konfirmasi untuk evaluasi babel
+      org-tag-alist '(
+                      ("@work" . ?w)
+                      ("@home" . ?h)
+                      ("@nix" . ?n)
+                      (:newline)
+                      ("Cancelled" . ?c)
+                      )
+
+      org-refile-allow-creating-parent-nodes 'confirm ; perbolehkan node baru ketika refile
       )
   #+end_src
 *** :term
@@ -761,22 +772,13 @@ Nilai /default/-nya 20, yang dilayar laptop dengan resolusi 1366x768 bagian bawa
   (setq which-key-frame-max-height 50))
 #+end_src
 **** Pengaturan kosmetik lainnya
-#+begin_src emacs-lisp :tangle no
-(setq org-return-follows-link t ; RET akan mengarahkan ke link
-      org-confirm-babel-evaluate nil ; jangan lakukan konfirmasi untuk evaluasi babel
-      org-tag-alist '(
-                      ("@work" . ?w)
-                      ("@home" . ?h)
-                      ("@nix" . ?n)
-                      (:newline)
-                      ("Cancelled" . ?c)
-                      )
-      org-refile-allow-creating-parent-nodes 'confirm
-      evil-want-fine-undo t
+#+begin_src emacs-lisp
+(setq
+      evil-want-fine-undo t; undo dilakukan dalam beberapa tahap
       undo-limit 80000000 ;80mb
       truncate-string-ellipsis "…"
       )
-(display-time-mode 1)
+(display-time-mode 1); berguna kalau kita sering fullscreen
 (global-subword-mode 1) ; pisahkan huruf berdasarkan aturan CamelCase
 
 (setq evil-vsplit-window-right t
