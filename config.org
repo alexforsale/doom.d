@@ -315,7 +315,7 @@ Dengan cakupan /org-mode/ yang sangat luas, perlu satu /heading/ tersendiri untu
     #+end_src
 
   - Asosiasikan /org-protocol/ dengan /desktop entry/ tersendiri
-    #+begin_src conf :tangle ~/.local/share/applications/org-protocol.desktop
+    #+begin_src conf :tangle ~/.local/share/applications/org-protocol.desktop :mkdirp yes
 [Desktop Entry]
 Name=Org-Protocol
 Exec=emacsclient %u
