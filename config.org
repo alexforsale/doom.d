@@ -326,11 +326,11 @@ MimeType=x-scheme-handler/org-protocol
     #+end_src
 
     Jalankan /keybind/ ~C-c C-v t~ didalam /code block dibawah ini/ untuk mengevaluasi, hanya perlu dilakukan sekali.
-    #+begin_src sh :tangle no
+    #+begin_src sh :tangle no :exports none
 xdg-mime default org-protocol.desktop x-scheme-handler/org-protocol
     #+end_src
     Untuk memastikan, perintah ini:
-    #+begin_src sh
+    #+begin_src sh :tangle no :exports none
 xdg-mime query default x-scheme-handler/org-protocol
     #+end_src
 
