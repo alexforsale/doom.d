@@ -415,11 +415,6 @@ See `org-capture-templates' for more information."
 
 **** Alur Workflow dari ox-hugo
 Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=, akan ada satu pilihan /template/ =[h]= untuk /Hugo/ (yang konfigurasinya dibuat [[*org-capture-templates][disini]]). Didalammnya ada tambahan pilihan untuk entri /New Project/ atau /New blogpost/, jika dipilih, keduanya akan melakukan penambahan /heading/ di file =~/Projects/personal/blog/index.org=, disini lokasi dari /blog/ saya. Bedanya pilihan /New Project/ akan membuat /heading/ baru dibawah /heading/ =Projects= yang sudah ada didalam file =index.org=, sebaliknya juga, pilihan /New blogpost/ akan membuat heading baru dibawah /heading/ =Post=.
-** =deft=
-#+begin_src emacs-lisp
-(setq deft-directory org-roam-directory
-      deft-recursive t)
-#+end_src
 ** RSS
 Menggunakan /default/ =elfeed=. Berikut konfigurasi agar /search filter/ mencari /feed/ sejauh 1 bulan kebelakang:
 #+begin_src emacs-lisp
