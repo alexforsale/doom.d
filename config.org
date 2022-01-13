@@ -339,10 +339,14 @@ xdg-mime query default x-scheme-handler/org-protocol
     jika dijalankan diterminal mestinya hasilnya seperti ini
     #+RESULTS:
     : org-protocol.desktop
-
 - =org-note=
   #+begin_src emacs-lisp
   (setq org-noter-notes-search-path '("~/Documents/google-drive/org/notes/"))
+  #+end_src
+- pengaturan /org-mode/ lainnya
+  #+begin_src emacs-lisp
+(setq org-use-property-inheritance t ;; warisi property dari header level sebelumnya
+      )
   #+end_src
 *** :term
 **** vterm
