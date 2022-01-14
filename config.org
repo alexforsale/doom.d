@@ -81,6 +81,9 @@ Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
 *** :completion
 [[file:~/.emacs.d/modules/completion/company/README.org::+TITLE: completion/company][company]] dan [[file:~/.emacs.d/modules/completion/vertico/README.org::+TITLE: completion/vertico][vertico]].
 **** [0/2] IDEA
+:LOGBOOK:
+CLOCK: [2022-01-14 Fri 22:54]
+:END:
 ***** [ ] Defaultnya =company-backends= yang aktif hanya sedikit, kita perlu menambahkan sendiri /backend/ yang dibutuhkan:
 #+name: company-backend
 #+begin_src emacs-lisp
