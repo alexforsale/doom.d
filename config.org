@@ -763,24 +763,4 @@ Karena menggunakan /gnupg/, saya menambahkan /action/ baru untuk mempermudah pro
 (add-hook! 'rainbow-mode-hook
   (hl-line-mode (if rainbow-mode -1 +1)))
 #+END_SRC
-*** Lainnya
-
-**** WAIT which-key
-Nilai /default/-nya 20, yang dilayar laptop dengan resolusi 1366x768 bagian bawahnya tidak muncul.
-#+begin_src emacs-lisp :tangle no
-(after! which-key
-  (setq which-key-frame-max-height 50))
-#+end_src
-**** Pengaturan kosmetik lainnya
-#+begin_src emacs-lisp
-(setq
-      evil-want-fine-undo t; undo dilakukan dalam beberapa tahap
-      undo-limit 80000000 ;80mb
-      truncate-string-ellipsis "…"
-      )
-(display-time-mode 1); berguna kalau kita sering fullscreen
-(global-subword-mode 1) ; pisahkan huruf berdasarkan aturan CamelCase
-
-(setq evil-vsplit-window-right t
-      evil-split-window-below t)
-#+end_src
+*** TODO Lainnya
