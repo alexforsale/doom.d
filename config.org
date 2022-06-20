@@ -54,7 +54,7 @@ Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
 #+END_SRC
 ** Theme
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-solarized-dark)
+(setq doom-theme 'doom-ayu-mirage)
 #+END_SRC
 ** Line Numbering
 Ini mengambil dari /template/ /doom/:
