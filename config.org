@@ -130,9 +130,7 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
 (after! org
   (setq org-capture-templates (append org-capture-templates
                                       '(("l" "Link Captures" entry (file+headline +org-capture-links-file "Links")
-                                         "** [[%:link][%:description]]\n:PROPERTIES:\n:Date: %T\n:END:\n%i" :immediate-finish t))
-                                    )
-      ))
+                                         "** [[%:link][%:description]]\n:PROPERTIES:\n:Date: %T\n:END:\n%i" :immediate-finish t)))))
   #+end_src
 - =org-protocol=
   #+begin_src emacs-lisp
