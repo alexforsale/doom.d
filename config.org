@@ -56,6 +56,12 @@ Digunakan dibeberapa tempat, lebih sering oleh /GPG/:
 #+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-solarized-dark)
 #+END_SRC
+** Line Numbering
+Ini mengambil dari /template/ /doom/:
+#+begin_src emacs-lisp
+(setq display-line-numbers-type t)
+#+end_src
+Nilai dari /variable/ ini bisa =nil= yang berarti tidak menggunakan /line numbering/, atau =relative=, yang berarti /line numbering/ menggunakan metode /relative/, berdasarkan posisi /point/.
 ** Others
 *** vterm
 Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=. Karena /package/ ini bawaan dari /doom/, tidak perlu dilakukan penambahan di =package.el=.
