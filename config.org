@@ -62,32 +62,6 @@ Ini mengambil dari /template/ /doom/:
 (setq display-line-numbers-type t)
 #+end_src
 Nilai dari /variable/ ini bisa =nil= yang berarti tidak menggunakan /line numbering/, atau =relative=, yang berarti /line numbering/ menggunakan metode /relative/, berdasarkan posisi /point/.
-** Others
-*** vterm
-Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=. Karena /package/ ini bawaan dari /doom/, tidak perlu dilakukan penambahan di =package.el=.
-*** Pengaturan kosmetik lainnya
-#+begin_src emacs-lisp
-(setq org-return-follows-link t ; RET akan mengarahkan ke link
-      org-confirm-babel-evaluate nil ; jangan lakukan konfirmasi untuk evaluasi babel
-      org-tag-alist '(
-                      ("@work" . ?w)
-                      ("@home" . ?h)
-                      ("@nix" . ?n)
-                      (:newline)
-                      ("Cancelled" . ?c)
-                      )
-      org-refile-allow-creating-parent-nodes 'confirm
-      evil-want-fine-undo t
-      undo-limit 80000000 ;80mb
-      truncate-string-ellipsis "…"
-      )
-(display-time-mode 1)
-(global-subword-mode 1) ; pisahkan huruf berdasarkan aturan CamelCase
-
-(setq evil-vsplit-window-right t
-      evil-split-window-below t)
-#+end_src
-
 * Kustomisasi Lanjutan
 Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja ditaruh disini agar lebih mudah melakukan /trace/ jika ada yang salah. Karena /doom/ sendiri sebenarnya adalah konfigurasi untuk /emacs/, cukup rumit untuk melihat apa yang salah jika ada miskonfigurasi. Jadi sebaiknya lakukan perubahan satu persatu, gunakan /version control/ untuk mempermudah, seperti /git/. =doom sync= setiap perubahan, /restart emacs/ dan jika tidak ada yang salah, /commit/ perubahan tersebut.
 ** selectric mode
