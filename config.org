@@ -71,7 +71,7 @@ Semua yang dicantumkan disini diluar konfigurasi bawaan dari /doom/, sengaja dit
 #+END_SRC
 ** pywal
 #+BEGIN_SRC emacs-lisp
-;(add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
+(add-hook 'doom-load-theme-hook 'theme-magic-from-emacs)
 #+END_SRC
 ** ox-hugo
 /Template/ /capture/ ini diambil dari [[https://ox-hugo.scripter.co/doc/org-capture-setup/][/ox-hugo/]], yang fungsinya untuk mempermudah proses pembuatan /post/ baru di blog. /Codeblock/ dibawah ini saja sebenarnya hanyalah penambahan /function/ yang nantinya dipanggil didalam =org-capture-templates=.
@@ -102,12 +102,6 @@ Ketika kita memanggil perintah =org-capture=, yang di /doom/ menggunakan =SPC-X=
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/google-drive/org")
 #+end_src
-- /Map/ =Alt-n= dan =Alt-p= untuk navigasi heading
-  #+begin_src emacs-lisp
-(map! :map org-mode-map
-      "M-n" #'outline-next-visible-heading
-      "M-p" #'outline-previous-visible-heading)
-  #+end_src
 - Informasi yang di /record/ ketika /task/ dipindahkan ke /state DONE/:
   #+begin_src emacs-lisp
 (setq org-log-done 'note ;- Informasi yang di record ketika task dipindahkan ke state DONE.
