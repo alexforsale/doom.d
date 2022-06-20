@@ -196,7 +196,7 @@ Menggunakan /offlineimap/
 #+END_SRC
 ** editorconfig
 #+begin_src emacs-lisp
-(editorconfig-mode 1)
+;;(editorconfig-mode 1)
 #+end_src
 
 * Packages
@@ -254,7 +254,7 @@ Dan gunakan =unpin= untuk melepaskan =:pin=
   - /pidof/
   - aplikasi /wallpaper/, (bisa bawaan dari /desktop environment/ seperti /mate/, /gnome/, /xfce/, dll atau universal seperti /feh/ atau /nitrogen/).
 #+BEGIN_SRC emacs-lisp
-;(package! theme-magic)
+(package! theme-magic)
 #+END_SRC
 **** Set Wallpaper
 Agar /setup/ ini bisa berjalan otomatis, untuk penggunaan pertama kali kita perlu merubah /wallpaper/ secara manual menggunakan perintah =wal -i /path/ke/gambar.png= sebelum dapat melakukan /exporting theme/ dari /emacs/. Dan setelahnya /wallpaper/ tersebut akan tersimpan didalam /cache/ /pywal/, perubahan theme bisa dilakukan dengan perintah =M-x theme-magic-from-emacs=.
