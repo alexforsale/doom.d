@@ -65,12 +65,6 @@ Nilai dari /variable/ ini bisa =nil= yang berarti tidak menggunakan /line number
 ** Others
 *** vterm
 Package ini membutuhkan /library/ eksternal =libvterm.so=, dan untuk pemakaian pertama kali perlu /compile/ module khusus dengan perintah =M-x vterm-module-compile=. Karena /package/ ini bawaan dari /doom/, tidak perlu dilakukan penambahan di =package.el=.
-*** which-key
-Nilai /default/-nya 20, yang dilayar laptop dengan resolusi 1366x768 bagian bawahnya tidak muncul.
-#+begin_src emacs-lisp
-(after! which-key
-  (setq which-key-frame-max-height 50))
-#+end_src
 *** Pengaturan kosmetik lainnya
 #+begin_src emacs-lisp
 (setq org-return-follows-link t ; RET akan mengarahkan ke link
